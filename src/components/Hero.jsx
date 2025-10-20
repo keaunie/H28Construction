@@ -6,7 +6,7 @@ import { toast } from '@/components/ui/use-toast';
 const Hero = () => {
   const handleCTA = () => {
     toast({
-      title: "🚧 This feature isn't implemented yet—but don't worry! You can request it in your next prompt! 🚀",
+      title: "🚧 This feature isn't implemented yet—but don't worry! Kyo will do it later!",
       duration: 4000,
     });
   };
@@ -14,14 +14,14 @@ const Hero = () => {
   return (
     <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 z-0">
-        <img 
-          className="w-full h-full object-cover grayscale" 
-          alt="Modern construction site with steel framework and workers"
-         src="https://images.unsplash.com/photo-1585072746984-82cbcc8388cf" />
+        <img
+          className="w-full h-full object-cover grayscale"
+          alt="Modern construction site with steel framework and professional workers overseeing progress."
+          src="https://images.unsplash.com/photo-1585072746984-82cbcc8388cf" />
         <div className="absolute inset-0 bg-black/60"></div>
       </div>
-      
-      <motion.div 
+
+      <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: 'easeOut' }}
@@ -31,11 +31,11 @@ const Hero = () => {
           Building with Precision,<br /> Passion, and Purpose.
         </h1>
         <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto font-light">
-          Professional construction management for commercial and residential projects
+          Professional Construction Management for Commercial, Residential, and Industrial Projects.
         </p>
-        <Button 
+        <Button
           onClick={handleCTA}
-          size="lg" 
+          size="lg"
           className="bg-yellow-400 text-black hover:bg-yellow-300 font-semibold px-8 py-6 text-lg transition-all duration-300"
         >
           Request a Consultation

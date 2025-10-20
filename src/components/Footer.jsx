@@ -4,12 +4,29 @@ import { Linkedin, Twitter, Facebook } from 'lucide-react';
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
+  // ⬇️ Put your maple-leaf accent image URL here
+  const ACCENT_URL =
+    'https://res.cloudinary.com/dczzibbkw/image/upload/v1760967879/mapleleaf_wf3ixn.webp';
+
   return (
-    <footer className="bg-black text-white py-12 px-4 border-t border-white/10">
-      <div className="max-w-6xl mx-auto">
+    <footer className="relative overflow-hidden bg-[#262626] text-white border-t border-white/10">
+      
+
+      {/* Soft vignette for blending */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-transparent"
+      />
+
+      <div className="relative z-10 max-w-6xl mx-auto px-4 py-12">
+        
+
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div>
             <span className="text-2xl font-bold">H28</span>
+            <p className="text-gray-300 text-xs mt-1">
+              A division of <span className="font-semibold">Habitat28</span>
+            </p>
             <p className="text-gray-400 text-sm mt-2">
               Excellence in construction management since 1995
             </p>
@@ -18,10 +35,26 @@ const Footer = () => {
           <div>
             <span className="font-semibold text-lg mb-4 block">Quick Links</span>
             <ul className="space-y-2 text-sm">
-              <li><a href="#about" className="text-gray-400 hover:text-yellow-400 transition-colors">About</a></li>
-              <li><a href="#services" className="text-gray-400 hover:text-yellow-400 transition-colors">Services</a></li>
-              <li><a href="#projects" className="text-gray-400 hover:text-yellow-400 transition-colors">Projects</a></li>
-              <li><a href="#contact" className="text-gray-400 hover:text-yellow-400 transition-colors">Contact</a></li>
+              <li>
+                <a href="#about" className="text-gray-400 hover:text-yellow-400 transition-colors">
+                  About
+                </a>
+              </li>
+              <li>
+                <a href="#services" className="text-gray-400 hover:text-yellow-400 transition-colors">
+                  Services
+                </a>
+              </li>
+              <li>
+                <a href="#projects" className="text-gray-400 hover:text-yellow-400 transition-colors">
+                  Projects
+                </a>
+              </li>
+              <li>
+                <a href="#contact" className="text-gray-400 hover:text-yellow-400 transition-colors">
+                  Contact
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -38,13 +71,25 @@ const Footer = () => {
           <div>
             <span className="font-semibold text-lg mb-4 block">Connect</span>
             <div className="flex space-x-4">
-              <a href="#" className="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-yellow-400 hover:text-black transition-all duration-300">
+              <a
+                href="#"
+                className="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-yellow-400 hover:text-black transition-all duration-300"
+                aria-label="LinkedIn"
+              >
                 <Linkedin className="w-5 h-5" strokeWidth={1.5} />
               </a>
-              <a href="#" className="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-yellow-400 hover:text-black transition-all duration-300">
+              <a
+                href="#"
+                className="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-yellow-400 hover:text-black transition-all duration-300"
+                aria-label="Twitter"
+              >
                 <Twitter className="w-5 h-5" strokeWidth={1.5} />
               </a>
-              <a href="#" className="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-yellow-400 hover:text-black transition-all duration-300">
+              <a
+                href="#"
+                className="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-yellow-400 hover:text-black transition-all duration-300"
+                aria-label="Facebook"
+              >
                 <Facebook className="w-5 h-5" strokeWidth={1.5} />
               </a>
             </div>
@@ -53,7 +98,10 @@ const Footer = () => {
 
         <div className="border-t border-white/10 pt-8 text-center">
           <p className="text-sm text-gray-400">
-            © {currentYear} H28 Construction Management. All rights reserved. | <a href="#" className="hover:text-yellow-400 transition-colors">Privacy Policy</a>
+            © {currentYear} H28 Construction Management. All rights reserved. |{' '}
+            <a href="#" className="hover:text-yellow-400 transition-colors">
+              Privacy Policy
+            </a>
           </p>
         </div>
       </div>

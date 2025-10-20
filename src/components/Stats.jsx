@@ -5,7 +5,7 @@ import { Award, Building, Maximize } from 'lucide-react';
 const stats = [
   {
     icon: Building,
-    value: '30+',
+    value: '40+',
     label: 'Years of Construction Excellence',
   },
   {
@@ -27,7 +27,7 @@ const stats = [
 
 const Stats = () => {
   return (
-    <section id="stats" className="py-24 bg-black text-white">
+    <section id="stats" className="py-24 bg-white text-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
           {stats.map((stat, index) => (
@@ -40,10 +40,10 @@ const Stats = () => {
               className="flex flex-col items-center"
             >
               <stat.icon className="w-12 h-12 text-yellow-400 mb-4" strokeWidth={1.5} />
-              <p className="text-4xl md:text-5xl font-bold text-white">
+              <p className="text-4xl md:text-5xl font-bold text-black">
                 {stat.value}
               </p>
-              <p className="text-base text-gray-300 mt-2">{stat.label}</p>
+              <p className="text-base text-black-300 mt-2">{stat.label}</p>
             </motion.div>
           ))}
         </div>

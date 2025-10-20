@@ -7,22 +7,22 @@ const About = () => {
     {
       icon: Award,
       title: 'Quality',
-      description: 'Committed to delivering superior quality in every project'
+      description: 'Every project is built to exceed expectations through uncompromising attention to detail.'
     },
     {
       icon: Users,
       title: 'Efficiency',
-      description: 'Expert guidance from planning through completion'
+      description: 'Streamlined project delivery from concept to completion, maximizing productivity.'
     },
     {
       icon: Target,
       title: 'Transparency',
-      description: 'Expert guidance from planning through completion'
+      description: 'Clear communication and honest reporting at every phase of construction.'
     },
     {
       icon: Award,
       title: 'Sustainability',
-      description: 'Committed to delivering superior quality in every project'
+      description: 'Environmentally responsible solutions that minimize waste and optimize performance.'
     }
   ];
 
@@ -38,8 +38,8 @@ const About = () => {
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6">About Us</h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            With decades of combined experience, we deliver construction management services 
-            that ensure your project is completed on time, within budget, and to the highest standards.
+            With over 30 years of combined construction expertise, H28 Construction Management a division of Habitat28 Canada, delivers comprehensive project oversight that ensures every build is completed on time, within budget, and to the highest standards.
+            We specialize in hybrid building methodologies that integrate modular efficiency with on-site precision, allowing us to deliver projects up to 35% faster and 22% more cost-effective than traditional construction methods.
           </p>
         </motion.div>
 

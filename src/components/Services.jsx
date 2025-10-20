@@ -7,22 +7,22 @@ const Services = () => {
     {
       icon: ClipboardCheck,
       title: 'Project Management',
-      description: 'Comprehensive oversight from conception to completion'
+      description: 'Strategic leadership and coordination from pre-construction through handover ensuring every milestone is met with precision.'
     },
     {
       icon: DollarSign,
       title: 'Budget Oversight',
-      description: 'Cost control and financial planning expertise'
+      description: 'Financial transparency and control through proactive cost estimation, monitoring, and value engineering.'
     },
     {
       icon: Calendar,
       title: 'Scheduling',
-      description: 'Timeline optimization and milestone tracking'
+      description: 'Smart scheduling and progress tracking that optimize timeframes, resources, and workforce allocation.'
     },
     {
       icon: Users,
       title: 'Contractor Coordination',
-      description: 'Seamless management of all project stakeholders'
+      description: 'End-to-end management of subcontractors and suppliers, ensuring seamless communication and quality assurance across all teams.'
     }
   ];
 
@@ -38,7 +38,7 @@ const Services = () => {
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6">Our Services</h2>
           <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-            Comprehensive construction management solutions tailored to your needs
+            Comprehensive construction management solutions tailored to your project’s unique needs.
           </p>
         </motion.div>
 
