@@ -232,7 +232,7 @@ const DesktopDiagram = () => {
             side: 'bottom',
         },
         2: {
-            title: 'PHASE 2 · HYBRID CONSTRUCTION METHODOLOGY',
+            title: 'PHASE 2 · HYBRID CONSTRUCTION',
             desc:
                 'Combining on-site construction with factory-produced modular components delivers 22% cost reduction and 35% faster timelines. BIM integration adds 8% cost savings and 12% timeline improvement.',
             node: topL,
@@ -246,14 +246,14 @@ const DesktopDiagram = () => {
             side: 'bottom',
         },
         4: {
-            title: 'PHASE 4 · PARALLEL CONSTRUCTION EXECUTION',
+            title: 'PHASE 4 · PARALLEL EXECUTION',
             desc:
                 'Secondary site capability enables parallel processing, eliminating sequential bottlenecks through advanced project management optimization.',
             node: topR,
             side: 'top',
         },
         5: {
-            title: 'PHASE 5 · INTEGRATED QUALITY ASSURANCE',
+            title: 'PHASE 5 · QUALITY ASSURANCE',
             desc:
                 'Comprehensive quality control from factory to installation, leveraging inspector relationships to reduce punch list items by 60%.',
             node: botR,
@@ -298,11 +298,11 @@ const DesktopDiagram = () => {
 
             {/* labels under/over nodes */}
             <SvgLabel x={botL.x - 20} y={botL.y + 110} lines={['INTEGRATED DESIGN &', 'PLANNING']} delay={0.30} />
-            <SvgLabel x={topL.x - 170} y={topL.y + 30} lines={['HYBRID CONSTRUCTION METHODOLOGY']} delay={0.15} />
+            <SvgLabel x={topL.x - 170} y={topL.y + 30} lines={['HYBRID CONSTRUCTION']} delay={0.15} />
             <SvgLabel x={botC.x} y={botC.y + 110} lines={['STRATEGIC PROCUREMENT', '& SOURCING']} delay={0.45} />
             {/* ⬇️ swapped text positions */}
-            <SvgLabel x={topR.x + 170} y={topR.y + 30} lines={['PARALLEL CONSTRUCTION EXECUTION']} delay={0.60} />
-            <SvgLabel x={botR.x + 20} y={botR.y + 110} lines={['INTEGRATED QUALITY ASSURANCE']} delay={0.75} />
+            <SvgLabel x={topR.x + 170} y={topR.y + 30} lines={['PARALLEL EXECUTION']} delay={0.60} />
+            <SvgLabel x={botR.x + 20} y={botR.y + 110} lines={['QUALITY ASSURANCE']} delay={0.75} />
 
             {/* tooltips (pass W/H if you’ve added auto-flip) */}
             {Object.entries(details).map(([id, d]) => (
@@ -327,10 +327,10 @@ const DesktopDiagram = () => {
 const MobileList = () => {
     const phases = [
         { id: 1, title: 'Integrated Design & Planning', icon: Lightbulb },
-        { id: 2, title: 'Hybrid Construction Methodology', icon: Factory },
+        { id: 2, title: 'Hybrid Construction', icon: Factory },
         { id: 3, title: 'Strategic Procurement & Sourcing', icon: ShoppingCart },
-        { id: 4, title: 'Parallel Construction Execution', icon: Settings },
-        { id: 5, title: 'Integrated Quality Assurance', icon: CheckCircle },
+        { id: 4, title: 'Parallel Execution', icon: Settings },
+        { id: 5, title: 'Quality Assurance', icon: CheckCircle },
     ];
 
     return (
