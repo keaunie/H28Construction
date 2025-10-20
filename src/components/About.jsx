@@ -1,15 +1,41 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Award, Users, Target } from 'lucide-react';
+import { Lightbulb, PiggyBank, BadgeCheck, Users, Eye } from 'lucide-react';
 
 const About = () => {
   const [brochureOpen, setBrochureOpen] = useState(false);
 
   const values = [
-    { icon: Award, title: 'Quality', description: 'Every project is built to exceed expectations through uncompromising attention to detail.' },
-    { icon: Users, title: 'Efficiency', description: 'Streamlined project delivery from concept to completion, maximizing productivity.' },
-    { icon: Target, title: 'Transparency', description: 'Clear communication and honest reporting at every phase of construction.' },
-    { icon: Award, title: 'Sustainability', description: 'Environmentally responsible solutions that minimize waste and optimize performance.' }
+    {
+      icon: Lightbulb,
+      title: 'Innovation Leadership',
+      description:
+        'We pioneer hybrid construction techniques that combine traditional craftsmanship with modular and prefabricated components—consistently delivering projects 35% faster than conventional approaches.'
+    },
+    {
+      icon: PiggyBank,
+      title: 'Cost Optimization',
+      description:
+        'Through strategic multi-marketplace procurement, hybrid methodologies, and waste reduction, we routinely deliver projects 15–25% below traditional costs—without sacrificing quality.'
+    },
+    {
+      icon: BadgeCheck,
+      title: 'Quality Excellence',
+      description:
+        'Factory-controlled modules undergo rigorous QA that exceeds on-site standards. With inspector partnerships and comprehensive testing, every project meets or exceeds all requirements.'
+    },
+    {
+      icon: Users,
+      title: 'Partnership Commitment',
+      description:
+        'We treat every engagement as a long-term partnership—collaborating on key decisions and leveraging our network of suppliers, regulators, and consultants to support outcomes.'
+    },
+    {
+      icon: Eye,
+      title: 'Operational Transparency',
+      description:
+        'Clear reporting, transparent cost tracking, and proactive issue identification ensure you always know project status, risks, and mitigation steps.'
+    }
   ];
 
   return (
@@ -29,24 +55,57 @@ const About = () => {
           </p>
         </motion.div>
 
-        {/* Value Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {values.map((value, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.12 }}
-              className="text-center"
-            >
-              <div className="inline-flex items-center justify-center w-20 h-20 mb-6 border-2 border-black rounded-full group hover:border-yellow-400 transition-colors">
-                <value.icon className="w-10 h-10 group-hover:text-yellow-400 transition-colors" strokeWidth={1.5} />
-              </div>
-              <h3 className="text-2xl font-semibold mb-3">{value.title}</h3>
-              <p className="text-gray-600 leading-relaxed">{value.description}</p>
-            </motion.div>
-          ))}
+        {/* Core Values (desktop tooltips) */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
+          {values.map((value, index) => {
+            const Icon = value.icon;
+            return (
+              <motion.div
+                key={value.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.08 }}
+                className="relative group text-center"
+              >
+                <div className="inline-flex items-center justify-center w-20 h-20 mb-6 border-2 border-black rounded-full group-hover:border-yellow-400 transition-colors">
+                  <Icon className="w-10 h-10 group-hover:text-yellow-400 transition-colors" strokeWidth={1.5} />
+                </div>
+                <h3 className="text-xl font-semibold mb-3">{value.title}</h3>
+
+                {/* Inline description for <lg (mobile & tablet) */}
+                <p className="text-gray-600 leading-relaxed lg:hidden">{value.description}</p>
+
+                {/* Tooltip (lg+ only) */}
+                <div
+                  role="tooltip"
+                  className="
+                        hidden lg:block
+                        pointer-events-none
+                        absolute left-1/2 -translate-x-1/2 top-full mt-3
+                        w-80 text-left
+                        opacity-0 translate-y-1
+                        group-hover:opacity-100 group-hover:translate-y-0
+                        transition-all duration-200
+                        z-20
+                      "
+                >
+                  {/* tooltip panel */}
+                  <div className="relative rounded-xl border border-gray-900/20 bg-white shadow-xl p-5">
+                    <p className="text-base text-gray-700 leading-relaxed">
+                      {value.description}
+                    </p>
+                    {/* arrow */}
+                    <div
+                      className="absolute -top-2 left-1/2 -translate-x-1/2 h-4 w-4 rotate-45 bg-white border-l border-t border-gray-900/20"
+                      aria-hidden="true"
+                    />
+                  </div>
+                </div>
+
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* Brochure Section */}
