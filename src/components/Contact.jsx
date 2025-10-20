@@ -30,24 +30,26 @@ const Contact = () => {
 
   return (
     <section id="contact" className="relative py-24 px-4 bg-black text-white overflow-hidden">
-      {/* Decorative maple leaf accent (bottom-right corner) */}
-      <div
+      {/* Decorative maple leaf accent on the left side */}
+      <img
+        src="https://res.cloudinary.com/dczzibbkw/image/upload/v1760967879/mapleleaf_wf3ixn.webp"
+        alt=""
         aria-hidden="true"
-        className="absolute bottom-0 right-0 w-[400px] md:w-[500px] lg:w-[600px] opacity-80 blur-sm pointer-events-none"
-        style={{
-          backgroundImage:
-            "url('https://res.cloudinary.com/dczzibbkw/image/upload/v1760967879/mapleleaf_wf3ixn.webp')",
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'contain',
-          backgroundPosition: 'bottom right'
-        }}
-      ></div>
+        className="
+          pointer-events-none select-none
+          absolute -bottom-10 -left-10
+          w-[300px] sm:w-[400px] md:w-[500px] lg:w-[600px]
+          opacity-90 blur-[1px]
+          drop-shadow-[0_0_12px_rgba(0,0,0,0.25)]
+          z-[1]
+        "
+      />
 
-      {/* Gradient overlay for smoother blend */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent pointer-events-none"></div>
+      {/* Gradient overlay for smooth blending */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-[0]" />
 
-      <div className="relative max-w-6xl mx-auto">
-        {/* Section heading */}
+      <div className="relative z-[2] max-w-6xl mx-auto">
+        {/* Section Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -62,7 +64,7 @@ const Contact = () => {
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-12">
-          {/* Form */}
+          {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -115,8 +117,8 @@ const Contact = () => {
             className="space-y-8"
           >
             <div className="flex items-start space-x-4">
-              <div className="w-12 h-12 border border-white/20 flex items-center justify-center flex-shrink-0 group hover:border-yellow-400 transition-colors duration-300">
-                <Phone className="w-6 h-6 group-hover:text-yellow-400 transition-colors duration-300" strokeWidth={1.5} />
+              <div className="w-12 h-12 border border-white/20 flex items-center justify-center group hover:border-yellow-400 transition-colors">
+                <Phone className="w-6 h-6 group-hover:text-yellow-400 transition-colors" strokeWidth={1.5} />
               </div>
               <div>
                 <h3 className="font-semibold text-lg mb-1">Phone</h3>
@@ -125,8 +127,8 @@ const Contact = () => {
             </div>
 
             <div className="flex items-start space-x-4">
-              <div className="w-12 h-12 border border-white/20 flex items-center justify-center flex-shrink-0 group hover:border-yellow-400 transition-colors duration-300">
-                <Mail className="w-6 h-6 group-hover:text-yellow-400 transition-colors duration-300" strokeWidth={1.5} />
+              <div className="w-12 h-12 border border-white/20 flex items-center justify-center group hover:border-yellow-400 transition-colors">
+                <Mail className="w-6 h-6 group-hover:text-yellow-400 transition-colors" strokeWidth={1.5} />
               </div>
               <div>
                 <h3 className="font-semibold text-lg mb-1">Email</h3>
@@ -135,8 +137,8 @@ const Contact = () => {
             </div>
 
             <div className="flex items-start space-x-4">
-              <div className="w-12 h-12 border border-white/20 flex items-center justify-center flex-shrink-0 group hover:border-yellow-400 transition-colors duration-300">
-                <MapPin className="w-6 h-6 group-hover:text-yellow-400 transition-colors duration-300" strokeWidth={1.5} />
+              <div className="w-12 h-12 border border-white/20 flex items-center justify-center group hover:border-yellow-400 transition-colors">
+                <MapPin className="w-6 h-6 group-hover:text-yellow-400 transition-colors" strokeWidth={1.5} />
               </div>
               <div>
                 <h3 className="font-semibold text-lg mb-1">Office</h3>
@@ -158,7 +160,7 @@ const Contact = () => {
           </motion.div>
         </div>
 
-        {/* Proudly Canadian tagline */}
+        {/* Tagline */}
         <div className="relative text-center mt-20">
           <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-white">
             Family Owned & Proudly Canadian 🇨🇦
