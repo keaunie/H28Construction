@@ -56,6 +56,7 @@ const About = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6">About Us</h2>
+          <h3 className="text-2xl md:text-3xl font-bold mb-6">"We don't just manage projects. We orchestrate Success"</h3>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
             With over 40 years of combined construction expertise, H28 Construction Management — a division of Habitat28 Ltd. — delivers comprehensive project oversight that ensures every build is completed on time, within budget, and to the highest standards. We specialize in hybrid building methodologies that integrate modular efficiency with on-site precision, allowing us to deliver projects up to 35% faster and 22% more cost-effective than traditional construction methods.
           </p>
@@ -95,7 +96,7 @@ const About = () => {
                             transition-all duration-200
                             z-20
                           "
-                      >
+                >
                   <div className="relative rounded-xl border border-black/10 bg-gray-900 text-gray-100 shadow-2xl p-5">
                     <p className="text-[15px] leading-relaxed tracking-wide text-gray-100">
                       {value.description}

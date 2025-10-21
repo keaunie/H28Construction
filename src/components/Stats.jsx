@@ -28,8 +28,20 @@ const stats = [
 const Stats = () => {
   return (
     <section id="stats" className="py-24 bg-white text-black">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        {/* Header */}
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-4xl md:text-5xl font-bold mb-14"
+        >
+          What Sets Us Apart
+        </motion.h2>
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12 text-center">
           {stats.map((stat, index) => (
             <motion.div
               key={index}
@@ -40,10 +52,8 @@ const Stats = () => {
               className="flex flex-col items-center"
             >
               <stat.icon className="w-12 h-12 text-yellow-400 mb-4" strokeWidth={1.5} />
-              <p className="text-4xl md:text-5xl font-bold text-black">
-                {stat.value}
-              </p>
-              <p className="text-base text-black-300 mt-2">{stat.label}</p>
+              <p className="text-4xl md:text-5xl font-bold">{stat.value}</p>
+              <p className="text-base text-gray-700 mt-2 max-w-[180px]">{stat.label}</p>
             </motion.div>
           ))}
         </div>

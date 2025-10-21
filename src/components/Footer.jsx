@@ -10,7 +10,7 @@ const Footer = () => {
 
   return (
     <footer className="relative overflow-hidden bg-[#262626] text-white border-t border-white/10">
-      
+
 
       {/* Soft vignette for blending */}
       <div
@@ -19,7 +19,7 @@ const Footer = () => {
       />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 py-12">
-        
+
 
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div>
@@ -28,7 +28,7 @@ const Footer = () => {
               A division of <span className="font-semibold">Habitat28</span>
             </p>
             <p className="text-gray-400 text-sm mt-2">
-              Excellence in construction management since 1995
+              H28 Construction Management, delivering precision-driven, certified construction solutions
             </p>
           </div>
 

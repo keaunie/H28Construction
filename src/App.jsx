@@ -7,6 +7,7 @@ import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
 import About from '@/components/About'
 import Stats from '@/components/Stats'
+import Advantage from './components/Advantage'
 import Services from '@/components/Services'
 import Process from './components/Process'
 import Projects from '@/components/Projects'
@@ -72,6 +73,10 @@ function App() {
 
           <ErrorBoundary label="Stats">
             <Stats />
+          </ErrorBoundary>
+
+          <ErrorBoundary label="Advantage">
+            <Advantage />
           </ErrorBoundary>
 
           <ErrorBoundary label="Services">

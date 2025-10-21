@@ -33,7 +33,7 @@ const Projects = () => {
 
       {/* === Foreground Content === */}
       <div className="relative max-w-6xl mx-auto">
-        {/* Heading */}
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -41,14 +41,17 @@ const Projects = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black drop-shadow-sm">
+          <h2 className="text-4xl md:text-5xl font-bold mb-3 text-black drop-shadow-sm">
             Featured Projects
           </h2>
+          <h3 className="text-2xl md:text-3xl font-semibold text-yellow-500 mb-4">
+            Results That Speak for Themselves.
+          </h3>
           <p className="text-lg text-gray-700 max-w-3xl mx-auto mb-8">
-            Explore our portfolio of landmark projects demonstrating innovation,
-            quality, and performance.
+            Explore some of our completed and ongoing projects — each one a story of collaboration, precision, and success.
           </p>
 
+          {/* Filter Buttons */}
           <div className="flex flex-wrap justify-center gap-3">
             {categories.map((category) => (
               <Button
@@ -90,9 +93,7 @@ const Projects = () => {
                   <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
                     {project.category}
                   </span>
-                  <h3 className="text-xl font-bold mt-2 mb-4">
-                    {project.title}
-                  </h3>
+                  <h3 className="text-xl font-bold mt-2 mb-4">{project.title}</h3>
                   <div className="flex justify-between text-sm text-gray-600">
                     <span>Timeline: {project.timeline}</span>
                     <span>Budget: {project.budget}</span>
