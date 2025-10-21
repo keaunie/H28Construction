@@ -7,7 +7,7 @@ const Services = () => {
     {
       icon: ClipboardCheck,
       title: 'Project Management',
-      description: 'Strategic leadership and coordination from pre-construction through handover ensuring every milestone is met with precision.'
+      description: 'Strategic leadership and coordination from pre-construction through to hand over. Ensuring every Milestone is met with precision.'
     },
     {
       icon: DollarSign,
@@ -17,7 +17,7 @@ const Services = () => {
     {
       icon: Calendar,
       title: 'Scheduling',
-      description: 'Smart scheduling and progress tracking that optimize timeframes, resources, and workforce allocation.'
+      description: 'Smart scheduling and progress tracking that optimizes time frames, resources, and Workforce allocation.'
     },
     {
       icon: Users,

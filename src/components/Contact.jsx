@@ -7,11 +7,7 @@ import { toast } from '@/components/ui/use-toast';
 import { Mail, Phone, MapPin } from 'lucide-react';
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,27 +17,38 @@ const Contact = () => {
     });
   };
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+  const handleChange = (e) =>
+    setFormData((s) => ({ ...s, [e.target.name]: e.target.value }));
 
   return (
     <section id="contact" className="relative py-24 px-4 bg-black text-white overflow-hidden">
-      {/* Decorative maple leaf accent on the left side */}
+      {/* Decorative maple leaf accent */}
+      {/* Mobile version (<md) */}
       <img
         src="https://res.cloudinary.com/dczzibbkw/image/upload/v1760967879/mapleleaf_wf3ixn.webp"
         alt=""
         aria-hidden="true"
         className="
+          block md:hidden
           pointer-events-none select-none
-          absolute -bottom-10 -left-10
-          w-[300px] sm:w-[400px] md:w-[500px] lg:w-[600px]
-          opacity-90 blur-[1px]
-          drop-shadow-[0_0_12px_rgba(0,0,0,0.25)]
-          z-[1]
+          absolute bottom-4 left-[-40px]
+          w-[140px]
+          opacity-100 drop-shadow-[0_0_12px_rgba(0,0,0,0.25)]
+          z-[2]
+        "
+      />
+      {/* Desktop/Laptop version (md+) — your existing placement/sizing */}
+      <img
+        src="https://res.cloudinary.com/dczzibbkw/image/upload/v1760967879/mapleleaf_wf3ixn.webp"
+        alt=""
+        aria-hidden="true"
+        className="
+          hidden md:block
+          pointer-events-none select-none
+          absolute -bottom-10 left-[-5px]   /* use arbitrary value syntax for Tailwind */
+          w-[200px] lg:w-[400px]
+          opacity-100 drop-shadow-[0_0_12px_rgba(0,0,0,0.25)]
+          z-[2]
         "
       />
 
@@ -106,6 +113,13 @@ const Contact = () => {
                 Send Message
               </Button>
             </form>
+
+            {/* Tagline */}
+            <div className="flex text-center mt-40">
+              <h3 className="flex text-center text-2xl md:text-4xl font-semibold tracking-tight text-white z-[3]">
+                Family Owned & Proudly Canadian
+              </h3>
+            </div>
           </motion.div>
 
           {/* Contact Info */}
@@ -158,13 +172,6 @@ const Contact = () => {
               />
             </div>
           </motion.div>
-        </div>
-
-        {/* Tagline */}
-        <div className="relative text-center mt-20">
-          <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-white">
-            Family Owned & Proudly Canadian 🇨🇦
-          </h3>
         </div>
       </div>
     </section>

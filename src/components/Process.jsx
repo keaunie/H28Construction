@@ -95,98 +95,59 @@ const AnimatedLine = ({ x1, y1, x2, y2, delay = 0 }) => (
         {...lineAnim(delay)}
     />
 );
-// ---- SVG Tooltip (auto-flips, clamps, and adds inner padding)
-const Tooltip = ({ x, y, title, desc, show, side = 'top', W, H }) => {
+// --- SVG Tooltip: fixed to TOP, arrow hits node edge consistently
+const Tooltip = ({ x, y, title, desc, show, W, H }) => {
     if (!show) return null;
 
-    const CARD_W = 340;   // ⬅️ wider box
-    const CARD_H = 126;   // ⬅️ taller for wrapped lines
-    const PADDING_X = 18; // ⬅️ internal padding
-    const PADDING_Y = 14;
+    const CARD_W = 360;
+    const CARD_H = 120;
+    const PAD_X = 18;
+    const PAD_Y = 12;
     const ARROW = 12;
-    const PAD = 16;       // minimum gap from edges
+    const VIEW_PAD = 24;
 
-    // Flip tooltip if it would go out of bounds
-    let sideEff = side;
-    if (side === 'top' && y - CARD_H - ARROW < PAD) sideEff = 'bottom';
-    if (side === 'bottom' && y + CARD_H + ARROW > H - PAD) sideEff = 'top';
+    // Your inner node ring is r=48; add 8px so the arrow touches just outside the ring
+    const TARGET_OFFSET = 56;           // ← adjust if you ever change node size
+    const targetY = y - TARGET_OFFSET;  // always top
 
-    // Offset based on side
-    const dy = sideEff === 'top' ? -(CARD_H + ARROW) : ARROW;
+    // Card sits above, with arrow tip at `targetY`
+    const cardY = targetY - (CARD_H + ARROW);
 
-    // Clamp horizontally
+    // Clamp horizontally so the card stays inside the viewBox
     const half = CARD_W / 2;
-    const clampedX = Math.max(PAD + half, Math.min(W - PAD - half, x));
-
+    const clampedX = Math.max(VIEW_PAD + half, Math.min(W - VIEW_PAD - half, x));
     const cardX = clampedX - half;
-    const cardY = y + dy;
 
     return (
         <g style={{ pointerEvents: 'none' }}>
-            {/* Shadow */}
-            <rect
-                x={cardX}
-                y={cardY}
-                width={CARD_W}
-                height={CARD_H}
-                rx="12"
-                ry="12"
-                fill="#00000022"
-            />
-            {/* Main card */}
-            <rect
-                x={cardX}
-                y={cardY}
-                width={CARD_W}
-                height={CARD_H}
-                rx="12"
-                ry="12"
-                fill="#ffffff"
-                stroke="#111827"
-                strokeWidth="1"
-            />
-            {/* Arrow */}
-            {sideEff === 'top' ? (
-                <path
-                    d={`M ${clampedX - 10} ${cardY + CARD_H} L ${clampedX} ${cardY + CARD_H + ARROW} L ${clampedX + 10} ${cardY + CARD_H}`}
-                    fill="#ffffff"
-                    stroke="#111827"
-                />
-            ) : (
-                <path
-                    d={`M ${clampedX - 10} ${cardY} L ${clampedX} ${cardY - ARROW} L ${clampedX + 10} ${cardY}`}
-                    fill="#ffffff"
-                    stroke="#111827"
-                />
-            )}
+            {/* soft shadow */}
+            <rect x={cardX} y={cardY} width={CARD_W} height={CARD_H} rx="12" ry="12" fill="#00000022" />
+            {/* panel */}
+            <rect x={cardX} y={cardY} width={CARD_W} height={CARD_H} rx="12" ry="12"
+                fill="#ffffff" stroke="#111827" strokeWidth="1" />
 
-            {/* Text with improved padding */}
-            <text
-                x={cardX + PADDING_X}
-                y={cardY + PADDING_Y + 10}
-                fontFamily="Inter, system-ui, sans-serif"
-                fontSize="14"
-                fontWeight="700"
-                fill="#111827"
-            >
+            {/* arrow (tip at node edge) */}
+            <path
+                d={`M ${clampedX - 10} ${cardY + CARD_H} L ${clampedX} ${targetY} L ${clampedX + 10} ${cardY + CARD_H}`}
+                fill="#ffffff" stroke="#111827"
+            />
+
+            {/* title */}
+            <text x={cardX + PAD_X} y={cardY + PAD_Y + 11}
+                fontFamily="Inter, system-ui, sans-serif" fontSize="14.5" fontWeight="700" fill="#111827">
                 {title}
             </text>
-            <text
-                x={cardX + PADDING_X}
-                y={cardY + PADDING_Y + 30}
-                fontFamily="Inter, system-ui, sans-serif"
-                fontSize="12.5"
-                fill="#374151"
-            >
-                {wrapSvgText(desc, 48).map((line, i) => (
-                    <tspan key={i} x={cardX + PADDING_X} dy={i === 0 ? 0 : 16}>
-                        {line}
-                    </tspan>
+            {/* body (wrapped) */}
+            <text x={cardX + PAD_X} y={cardY + PAD_Y + 33}
+                fontFamily="Inter, system-ui, sans-serif" fontSize="13.25" fill="#374151">
+                {wrapSvgText(desc, 50).map((line, i) => (
+                    <tspan key={i} x={cardX + PAD_X} dy={i === 0 ? 0 : 16}>{line}</tspan>
                 ))}
             </text>
         </g>
     );
 };
+
 
 
 
@@ -206,114 +167,129 @@ function wrapSvgText(text, max = 42) {
     if (line) lines.push(line.trim());
     return lines.slice(0, 4); // keep tooltip compact (max ~4 lines)
 }
-// ---- Desktop / Tablet Diagram (Phase 4 ↔ Phase 5 swapped)
+
+
 const DesktopDiagram = () => {
     const [hovered, setHovered] = useState(null);
 
-    // Slightly taller to avoid tooltip clipping
-    const W = 1200, H = 640;
+    // Full-bleed canvas, but we’ll place nodes inside a narrower span
+    const W = 1440;  // wide viewBox so it scales beautifully
+    const H = 440;   // taller to give tooltips breathing room
+    const baseY = 230;
 
-    // Layout (left side unchanged)
-    const topL = { x: 380, y: 140 }; // Phase 2
-    const botL = { x: 260, y: 370 }; // Phase 1
-    const botC = { x: 600, y: 370 }; // Phase 3
+    // Nodes span only 68% of width (centered) -> leaves margins for tooltips
+    const span = W * 0.68;
+    const startX = (W - span) / 2;
+    const step = span / 4;
+    const X = Array.from({ length: 5 }, (_, i) => Math.round(startX + i * step));
 
-    // ⬇️ SWAP: top-right is now Phase 4; bottom-right is Phase 5
-    const topR = { x: 820, y: 140 }; // Phase 4 (Parallel Execution)
-    const botR = { x: 940, y: 370 }; // Phase 5 (Quality Assurance)
-
-    // Phase details for tooltips
-    const details = {
-        1: {
-            title: 'PHASE 1 · INTEGRATED DESIGN & PLANNING',
-            desc:
-                'Our in-house architects and designers eliminate coordination delays by integrating construction expertise from day one, reducing design-related change orders by 40%.',
-            node: botL,
-            side: 'bottom',
+    const phases = [
+        {
+            id: 1, x: X[0], y: baseY, icon: Lightbulb,
+            pill: { x: X[0], y: baseY + 60, tone: 'slate', label: 'PHASE 1' },
+            label: { x: X[0], y: baseY + 100, lines: ['INTEGRATED DESIGN &', 'PLANNING'] },
+            tooltip: {
+                title: 'PHASE 1 · INTEGRATED DESIGN & PLANNING',
+                desc:
+                    'Our in-house architects and designers eliminate coordination delays by integrating construction expertise from day one, reducing design-related change orders by 40%.',
+            },
         },
-        2: {
-            title: 'PHASE 2 · HYBRID CONSTRUCTION',
-            desc:
-                'Combining on-site construction with factory-produced modular components delivers 22% cost reduction and 35% faster timelines. BIM integration adds 8% cost savings and 12% timeline improvement.',
-            node: topL,
-            side: 'top',
+        {
+            id: 2, x: X[1], y: baseY, icon: Factory,
+            pill: { x: X[1], y: baseY + 60, tone: 'slate', label: 'PHASE 2' },
+            label: { x: X[1], y: baseY + 100, lines: ['HYBRID CONSTRUCTION'] },
+            tooltip: {
+                title: 'PHASE 2 · HYBRID CONSTRUCTION',
+                desc:
+                    'Combining on-site construction with factory-produced modular components delivers 22% cost reduction and 35% faster timelines. BIM integration adds 8% cost savings and 12% timeline improvement.',
+            },
         },
-        3: {
-            title: 'PHASE 3 · STRATEGIC PROCUREMENT',
-            desc:
-                'Multi-marketplace sourcing relationships reduce material costs 10–20% while ensuring guaranteed delivery and eliminating supply risks.',
-            node: botC,
-            side: 'bottom',
+        {
+            id: 3, x: X[2], y: baseY, icon: ShoppingCart,
+            pill: { x: X[2], y: baseY + 60, tone: 'slate', label: 'PHASE 3' },
+            label: { x: X[2], y: baseY + 100, lines: ['STRATEGIC PROCUREMENT', '& SOURCING'] },
+            tooltip: {
+                title: 'PHASE 3 · STRATEGIC PROCUREMENT',
+                desc:
+                    'Multi-marketplace sourcing relationships reduce material costs 10–20% while ensuring guaranteed delivery and eliminating supply risks.',
+            },
         },
-        4: {
-            title: 'PHASE 4 · PARALLEL EXECUTION',
-            desc:
-                'Secondary site capability enables parallel processing, eliminating sequential bottlenecks through advanced project management optimization.',
-            node: topR,
-            side: 'top',
+        {
+            id: 4, x: X[3], y: baseY, icon: Settings,
+            pill: { x: X[3], y: baseY + 60, tone: 'slate', label: 'PHASE 4' },
+            label: { x: X[3], y: baseY + 100, lines: ['PARALLEL EXECUTION'] },
+            tooltip: {
+                title: 'PHASE 4 · PARALLEL EXECUTION',
+                desc:
+                    'Secondary site capability enables parallel processing, eliminating sequential bottlenecks through advanced project management optimization.',
+            },
         },
-        5: {
-            title: 'PHASE 5 · QUALITY ASSURANCE',
-            desc:
-                'Comprehensive quality control from factory to installation, leveraging inspector relationships to reduce punch list items by 60%.',
-            node: botR,
-            side: 'bottom',
+        {
+            id: 5, x: X[4], y: baseY, icon: CheckCircle,
+            pill: { x: X[4], y: baseY + 60, tone: 'slate', label: 'PHASE 5' },
+            label: { x: X[4], y: baseY + 100, lines: ['QUALITY ASSURANCE'] },
+            tooltip: {
+                title: 'PHASE 5 · QUALITY ASSURANCE',
+                desc:
+                    'Comprehensive quality control from factory to installation, leveraging inspector relationships to reduce punch list items by 60%.',
+            },
         },
-    };
+    ];
 
     return (
         <motion.svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto">
+            {/* faint baseline */}
+            <line
+                x1={startX - 30}
+                y1={baseY}
+                x2={startX + span + 30}
+                y2={baseY}
+                stroke="#E5E7EB"
+                strokeWidth="3"
+                strokeDasharray="6 10"
+            />
+
             {/* connectors */}
-            <AnimatedLine x1={topL.x} y1={topL.y + 50} x2={botL.x} y2={botL.y - 50} delay={0.05} />
-            <AnimatedLine x1={topL.x} y1={topL.y + 50} x2={botC.x} y2={botC.y - 50} delay={0.20} />
-            <AnimatedLine x1={topR.x} y1={topR.y + 50} x2={botC.x} y2={botC.y - 50} delay={0.35} />
-            <AnimatedLine x1={topR.x} y1={topR.y + 50} x2={botR.x} y2={botR.y - 50} delay={0.50} />
+            {phases.slice(0, -1).map((p, i) => (
+                <AnimatedLine
+                    key={`c-${p.id}-${phases[i + 1].id}`}
+                    x1={p.x} y1={p.y}
+                    x2={phases[i + 1].x} y2={phases[i + 1].y}
+                    delay={0.1 + i * 0.12}
+                />
+            ))}
 
-            {/* nodes (hover targets) */}
-            <Node x={topL.x} y={topL.y} icon={Factory} delay={0.10}
-                onEnter={() => setHovered(2)} onLeave={() => setHovered(null)} />
-            <Node x={botL.x} y={botL.y} icon={Lightbulb} delay={0.25}
-                onEnter={() => setHovered(1)} onLeave={() => setHovered(null)} />
-            <Node x={botC.x} y={botC.y} icon={ShoppingCart} delay={0.40}
-                onEnter={() => setHovered(3)} onLeave={() => setHovered(null)} />
-            {/* ⬇️ top-right is Phase 4 (gear) */}
-            <Node x={topR.x} y={topR.y} icon={Settings} delay={0.55}
-                onEnter={() => setHovered(4)} onLeave={() => setHovered(null)} />
-            {/* ⬇️ bottom-right is Phase 5 (check) */}
-            <Node x={botR.x} y={botR.y} icon={CheckCircle} delay={0.70}
-                onEnter={() => setHovered(5)} onLeave={() => setHovered(null)} />
+            {/* nodes/pills/labels */}
+            {phases.map((p, idx) => {
+                const Icon = p.icon;
+                return (
+                    <g key={p.id}>
+                        <Node
+                            x={p.x} y={p.y} icon={Icon}
+                            delay={0.12 + idx * 0.12}
+                            onEnter={() => setHovered(p.id)}
+                            onLeave={() => setHovered(null)}
+                        />
+                        <Pill
+                            x={p.pill.x} y={p.pill.y} label={p.pill.label} tone={p.pill.tone}
+                            delay={0.18 + idx * 0.12}
+                            onEnter={() => setHovered(p.id)}
+                            onLeave={() => setHovered(null)}
+                        />
+                        <SvgLabel x={p.label.x} y={p.label.y} lines={p.label.lines} delay={0.22 + idx * 0.12} />
+                    </g>
+                );
+            })}
 
-            {/* pills (hover targets) */}
-            <Pill x={botL.x - 20} y={botL.y + 70} label="PHASE 1" tone="beige" delay={0.28}
-                onEnter={() => setHovered(1)} onLeave={() => setHovered(null)} />
-            <Pill x={topL.x - 170} y={topL.y - 10} label="PHASE 2" tone="beige" delay={0.13}
-                onEnter={() => setHovered(2)} onLeave={() => setHovered(null)} />
-            <Pill x={botC.x} y={botC.y + 70} label="PHASE 3" tone="slate" delay={0.43}
-                onEnter={() => setHovered(3)} onLeave={() => setHovered(null)} />
-            {/* ⬇️ swapped labels */}
-            <Pill x={topR.x + 170} y={topR.y - 10} label="PHASE 4" tone="beige" delay={0.58}
-                onEnter={() => setHovered(4)} onLeave={() => setHovered(null)} />
-            <Pill x={botR.x + 20} y={botR.y + 70} label="PHASE 5" tone="beige" delay={0.73}
-                onEnter={() => setHovered(5)} onLeave={() => setHovered(null)} />
-
-            {/* labels under/over nodes */}
-            <SvgLabel x={botL.x - 20} y={botL.y + 110} lines={['INTEGRATED DESIGN &', 'PLANNING']} delay={0.30} />
-            <SvgLabel x={topL.x - 170} y={topL.y + 30} lines={['HYBRID CONSTRUCTION']} delay={0.15} />
-            <SvgLabel x={botC.x} y={botC.y + 110} lines={['STRATEGIC PROCUREMENT', '& SOURCING']} delay={0.45} />
-            {/* ⬇️ swapped text positions */}
-            <SvgLabel x={topR.x + 170} y={topR.y + 30} lines={['PARALLEL EXECUTION']} delay={0.60} />
-            <SvgLabel x={botR.x + 20} y={botR.y + 110} lines={['QUALITY ASSURANCE']} delay={0.75} />
-
-            {/* tooltips (pass W/H if you’ve added auto-flip) */}
-            {Object.entries(details).map(([id, d]) => (
+            {/* tooltips (always TOP now) */}
+            {phases.map((p) => (
                 <Tooltip
-                    key={id}
-                    x={d.node.x}
-                    y={d.node.y}
-                    title={d.title}
-                    desc={d.desc}
-                    side={d.side}
-                    show={hovered === Number(id)}
+                    key={`t-${p.id}`}
+                    x={p.x}
+                    y={p.y}
+                    title={p.tooltip.title}
+                    desc={p.tooltip.desc}
+                    show={hovered === p.id}
                     W={W}
                     H={H}
                 />
@@ -321,6 +297,8 @@ const DesktopDiagram = () => {
         </motion.svg>
     );
 };
+
+
 
 
 // ---- Mobile layout (unchanged)
@@ -354,7 +332,6 @@ const MobileList = () => {
         </div>
     );
 };
-
 // ---- Section wrapper
 const ProcessDiagram = () => {
     return (
@@ -366,19 +343,20 @@ const ProcessDiagram = () => {
                         A 5-phase, hybrid delivery model that integrates design, modular efficiency, and rigorous QA.
                     </p>
                 </div>
+            </div>
 
-                {/* Mobile (<md) */}
-                <div className="md:hidden">
-                    <MobileList />
-                </div>
+            {/* Mobile (<md) */}
+            <div className="md:hidden max-w-6xl mx-auto px-4">
+                <MobileList />
+            </div>
 
-                {/* Desktop / Tablet (≥md) */}
-                <div className="hidden md:block">
-                    <DesktopDiagram />
-                </div>
+            {/* Desktop / Tablet (≥md) — FULL BLEED SVG */}
+            <div className="hidden md:block relative left-1/2 -translate-x-1/2 w-screen">
+                <DesktopDiagram />
             </div>
         </section>
     );
 };
+
 
 export default ProcessDiagram;
