@@ -38,7 +38,7 @@ const Hero = () => {
           size="lg"
           className="bg-yellow-400 text-black hover:bg-yellow-300 font-semibold px-8 py-6 text-lg transition-all duration-300"
         >
-          Request a Consultation
+          Start Your Project
         </Button>
       </motion.div>
     </section>

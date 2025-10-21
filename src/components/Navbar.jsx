@@ -8,18 +8,20 @@ const Navbar = () => {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   const navLinksLeft = [
     { name: 'https://res.cloudinary.com/dczzibbkw/image/upload/v1760714234/habitat28_foirsa.webp', href: '#' },
   ];
+
   const navLinksRight = [
-    { name: 'About', href: '#about' },
+    // { name: 'About', href: '#about' },
     { name: 'Services', href: '#services' },
+    { name: 'Process', href: '#process' },
     { name: 'Projects', href: '#projects' },
-    { name: 'Contact', href: '#contact' }
+    { name: 'Contact', href: '#contact' },
   ];
 
   return (
@@ -29,38 +31,41 @@ const Navbar = () => {
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        scrolled ? 'bg-black bg-opacity-100 shadow-lg' : 'bg-transparent'
+        scrolled ? 'bg-black/95 shadow-lg' : 'bg-transparent'
       )}
       role="navigation"
       aria-label="Primary"
     >
       <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* NAV ROW: make it relative + overflow-hidden so logo stays inside */}
+        {/* NAV ROW */}
         <div
           className={cn(
             'relative flex items-center justify-between overflow-hidden transition-[height] duration-300',
             scrolled
-              ? 'h-20 sm:h-22 md:h-24 lg:h-28 xl:h-32'   // smaller when scrolled
-              : 'h-24 sm:h-26 md:h-28 lg:h-32 xl:h-40'   // base heights
+              ? 'h-14 md:h-16 lg:h-20 xl:h-22'
+              : 'h-22 md:h-26 lg:h-30 xl:h-32'
           )}
         >
-          {/* LEFT */}
+          {/* LEFT — Habitat28 Logo */}
           <div className="flex items-center gap-4 sm:gap-6">
-            {navLinksLeft.map(l => (
+            {navLinksLeft.map((l) => (
               <a key={l.name} href={l.href} aria-label="Habitat28" className="block">
-                <img
+                <motion.img
                   src={l.name}
                   alt="Habitat28"
-                  className="object-contain h-8 sm:h-10 md:h-12 lg:h-14 xl:h-16"
+                  className="object-contain"
+                  style={{ height: '40px' }}
+                  animate={{ scale: scrolled ? 0.70 : 1.20 }}
+                  transition={{ type: 'spring', stiffness: 260, damping: 22 }}
                 />
               </a>
             ))}
           </div>
 
-          {/* CENTER LOGO — perfectly centered & constrained inside the row */}
+          {/* CENTER LOGO */}
           <motion.div
             className="absolute inset-0 pointer-events-none flex items-center justify-center"
-            animate={{ scale: scrolled ? 0.85 : 1 }}
+            animate={{ scale: scrolled ? 0.60 : 1.45 }}
             transition={{ type: 'spring', stiffness: 260, damping: 26 }}
           >
             <img
@@ -68,23 +73,40 @@ const Navbar = () => {
               alt="H28 Construction Management"
               className="
                 object-contain
-                h-[88px]  sm:h-[96px]  md:h-[104px]  lg:h-[120px]  xl:h-[500px]
-                max-h-full   /* never exceed the navbar row height */
+                h-[70px] sm:h-[80px] md:h-[92px] lg:h-[104px] xl:h-[112px]
+                max-h-full
               "
             />
           </motion.div>
 
-          {/* RIGHT (desktop) */}
+          {/* RIGHT — Nav Links + Button */}
           <div className="hidden md:flex items-center gap-6 lg:gap-8">
-            {navLinksRight.map(link => (
+            {navLinksRight.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="text-white font-medium text-sm lg:text-base hover:text-yellow-400 transition-colors duration-300"
+                className="text-white font-medium text-sm lg:text-base hover:text-yellow-400 transition-colors"
               >
                 {link.name}
               </a>
             ))}
+
+            {/* Start Your Project Button */}
+            <a
+              href="#contact"
+              className="
+                ml-2 inline-flex items-center justify-center
+                px-4 py-2 lg:px-5 lg:py-2.5
+                rounded-full
+                bg-yellow-400 text-black font-semibold
+                hover:bg-white hover:text-black
+                border-2 border-yellow-400
+                transition-all duration-300
+                shadow-sm hover:shadow-lg
+              "
+            >
+              Start Your Project
+            </a>
           </div>
 
           {/* MOBILE MENU BUTTON */}
@@ -93,7 +115,7 @@ const Navbar = () => {
             className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-white hover:text-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
             aria-label="Toggle menu"
             aria-expanded={mobileOpen}
-            onClick={() => setMobileOpen(v => !v)}
+            onClick={() => setMobileOpen((v) => !v)}
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="h-7 w-7">
               <path
@@ -115,11 +137,11 @@ const Navbar = () => {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden overflow-hidden bg-black bg-opacity-100 border-t border-white/10"
+            className="md:hidden overflow-hidden bg-black/95 border-t border-white/10"
           >
             <div className="px-4 py-3 sm:px-6">
               <nav className="flex flex-col gap-2">
-                {navLinksRight.map(link => (
+                {navLinksRight.map((link) => (
                   <a
                     key={link.name}
                     href={link.href}
@@ -129,6 +151,14 @@ const Navbar = () => {
                     {link.name}
                   </a>
                 ))}
+                {/* Mobile Button */}
+                <a
+                  href="#contact"
+                  className="mt-3 inline-flex justify-center rounded-md bg-yellow-400 text-black font-semibold py-3 hover:bg-white hover:text-black transition-all duration-300"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  Start Your Project
+                </a>
               </nav>
             </div>
           </motion.div>

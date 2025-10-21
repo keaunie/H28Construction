@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Lightbulb, PiggyBank, BadgeCheck, Users, Eye } from 'lucide-react';
 
+
+const BROCHURE_COVER_URL =
+  // TODO: Replace with your brochure front page image
+  'https://res.cloudinary.com/dczzibbkw/image/upload/v1761051661/8a009d24-e58f-4685-8ca8-0f4194671051.png';
+
+
 const About = () => {
   const [brochureOpen, setBrochureOpen] = useState(false);
 
@@ -22,7 +28,7 @@ const About = () => {
       icon: BadgeCheck,
       title: 'Quality Excellence',
       description:
-        'Factory-controlled modules undergo rigorous QA that exceeds on-site standards. With inspector partnerships and comprehensive testing, every project meets or exceeds all requirements.'
+        'Factory-controlled modules undergo rigorous QA that exceeds on-site standards. With inspection Partnerships and comprehensive testing every project meets or exceeds all requirements and building codes.'
     },
     {
       icon: Users,
@@ -51,7 +57,7 @@ const About = () => {
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6">About Us</h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            With over 30 years of combined construction expertise, H28 Construction Management — a division of Habitat28 Canada — delivers comprehensive project oversight that ensures every build is completed on time, within budget, and to the highest standards. We specialize in hybrid building methodologies that integrate modular efficiency with on-site precision, allowing us to deliver projects up to 35% faster and 22% more cost-effective than traditional construction methods.
+            With over 40 years of combined construction expertise, H28 Construction Management — a division of Habitat28 Ltd. — delivers comprehensive project oversight that ensures every build is completed on time, within budget, and to the highest standards. We specialize in hybrid building methodologies that integrate modular efficiency with on-site precision, allowing us to deliver projects up to 35% faster and 22% more cost-effective than traditional construction methods.
           </p>
         </motion.div>
 
@@ -80,24 +86,22 @@ const About = () => {
                 <div
                   role="tooltip"
                   className="
-                        hidden lg:block
-                        pointer-events-none
-                        absolute left-1/2 -translate-x-1/2 top-full mt-3
-                        w-80 text-left
-                        opacity-0 translate-y-1
-                        group-hover:opacity-100 group-hover:translate-y-0
-                        transition-all duration-200
-                        z-20
-                      "
-                >
-                  {/* tooltip panel */}
-                  <div className="relative rounded-xl border border-gray-900/20 bg-white shadow-xl p-5">
-                    <p className="text-base text-gray-700 leading-relaxed">
+                            hidden lg:block
+                            pointer-events-none
+                            absolute left-1/2 -translate-x-1/2 top-full mt-3
+                            w-80 text-left
+                            opacity-0 translate-y-1
+                            group-hover:opacity-100 group-hover:translate-y-0
+                            transition-all duration-200
+                            z-20
+                          "
+                      >
+                  <div className="relative rounded-xl border border-black/10 bg-gray-900 text-gray-100 shadow-2xl p-5">
+                    <p className="text-[15px] leading-relaxed tracking-wide text-gray-100">
                       {value.description}
                     </p>
-                    {/* arrow */}
                     <div
-                      className="absolute -top-2 left-1/2 -translate-x-1/2 h-4 w-4 rotate-45 bg-white border-l border-t border-gray-900/20"
+                      className="absolute -top-2 left-1/2 -translate-x-1/2 h-4 w-4 rotate-45 bg-gray-900 border-l border-t border-black/10"
                       aria-hidden="true"
                     />
                   </div>
@@ -108,29 +112,100 @@ const About = () => {
           })}
         </div>
 
-        {/* Brochure Section */}
-        <div className="mt-20 text-center">
+        {/* === Brochure Section — FULL BLEED, keeps design === */}
+        <div className="mt-20 relative left-1/2 -translate-x-1/2 w-screen">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="relative inline-block px-8 py-10 border border-gray-200 rounded-2xl shadow-sm bg-gradient-to-br from-gray-50 to-white"
+            className="
+      relative
+      border-y-2 border-black
+      bg-gradient-to-br from-yellow-300 via-yellow-400 to-yellow-500
+      ring-1 ring-yellow-200/50
+      shadow-[0_20px_40px_rgba(0,0,0,0.15)]
+      overflow-hidden
+    "
           >
-            <div className="max-w-lg mx-auto">
-              <h3 className="text-2xl md:text-3xl font-bold mb-3">Company Brochure</h3>
-              <p className="text-gray-600 mb-6">
-                Explore our capabilities, methodology, and project highlights in our interactive flipbook.
-              </p>
-              <button
-                onClick={() => setBrochureOpen(true)}
-                className="inline-flex items-center px-6 py-3 rounded-md bg-black text-white hover:bg-yellow-400 hover:text-black font-semibold transition-colors"
-              >
-                Open Brochure
-              </button>
+            {/* Soft decorative glow */}
+            <div className="pointer-events-none absolute -right-24 -bottom-24 w-80 h-80 rounded-full blur-3xl bg-yellow-200/50" />
+
+            {/* Content grid — full width, but padded for readability */}
+            <div className="grid md:grid-cols-2 items-stretch">
+              {/* Left: image preview (front page) */}
+              <div className="relative bg-white/40">
+                <div className="relative mx-auto w-full h-full min-h-[280px] md:min-h-[360px] lg:min-h-[420px] overflow-hidden">
+                  <img
+                    src={BROCHURE_COVER_URL}
+                    alt="H28 Company Brochure — Front Page"
+                    className="absolute inset-0 h-full w-full object-contain p-6 md:p-8 lg:p-10"
+                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                  />
+                  {/* subtle frame */}
+                  <div className="pointer-events-none absolute inset-3 md:inset-5 rounded-xl border border-black/20" />
+                </div>
+              </div>
+
+              {/* Right: text + actions */}
+              <div className="relative">
+                {/* Featured badge (desktop only) */}
+                <span className="hidden md:inline-block absolute top-5 left-6 rounded-full bg-black text-yellow-300 px-3 py-1 text-xs font-semibold tracking-wide z-10">
+                  FEATURED
+                </span>
+
+                <div className="px-6 py-10 md:px-10 md:py-14 lg:px-14 lg:py-16 flex items-center">
+                  <div className="w-full text-center md:text-left">
+                    <h3 className="text-3xl md:text-4xl font-extrabold mb-3 tracking-tight">
+                      Company Brochure
+                    </h3>
+                    <p className="text-black/85 md:text-lg mb-7 max-w-xl md:max-w-none mx-auto md:mx-0">
+                      Explore our capabilities, methodology, and project highlights in our interactive flipbook.
+                    </p>
+
+                    <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
+                      <button
+                        onClick={() => setBrochureOpen(true)}
+                        className="
+                  inline-flex items-center justify-center
+                  px-6 py-3 md:px-7 md:py-3.5
+                  rounded-lg
+                  bg-black text-white
+                  hover:bg-white hover:text-black
+                  border-2 border-black
+                  font-semibold
+                  transition-colors
+                "
+                      >
+                        Open Brochure
+                      </button>
+
+                      <a
+                        href="https://heyzine.com/flip-book/f3f89b2d65.html#page/1"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="
+                  inline-flex items-center justify-center
+                  px-6 py-3 md:px-7 md:py-3.5
+                  rounded-lg
+                  bg-transparent text-black
+                  hover:bg-black hover:text-white
+                  border-2 border-black
+                  font-semibold
+                  transition-colors
+                "
+                      >
+                        View in new tab
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
+
+
       </div>
 
       {/* Fullscreen Flipbook Modal */}
