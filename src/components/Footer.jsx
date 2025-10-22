@@ -23,7 +23,16 @@ const Footer = () => {
 
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div>
-            <span className="text-2xl font-bold">H28</span>
+            {/* <span className="text-2xl font-bold">H28</span> */}
+            <img
+              src="https://res.cloudinary.com/dczzibbkw/image/upload/v1760962770/h28construction_je3slj.webp"
+              alt="H28 Construction Management"
+              className="
+                object-contain
+                h-[70px] sm:h-[80px] md:h-[92px] lg:h-[104px] xl:h-[112px]
+                max-h-full
+              "
+            />
             <p className="text-gray-300 text-xs mt-1">
               A division of <span className="font-semibold">Habitat28</span>
             </p>

@@ -160,7 +160,7 @@ const Contact = () => {
               Reach Us Directly
             </h4>
 
-            <div className="flex items-start space-x-4">
+            {/* <div className="flex items-start space-x-4">
               <div className="w-12 h-12 border border-white/20 flex items-center justify-center group hover:border-yellow-400 transition-colors">
                 <Phone className="w-6 h-6 group-hover:text-yellow-400 transition-colors" strokeWidth={1.5} />
               </div>
@@ -168,7 +168,7 @@ const Contact = () => {
                 <h5 className="font-semibold text-lg mb-1">Phone</h5>
                 <p className="text-gray-400">+1 (555) 123-4567</p>
               </div>
-            </div>
+            </div> */}
 
             <div className="flex items-start space-x-4">
               <div className="w-12 h-12 border border-white/20 flex items-center justify-center group hover:border-yellow-400 transition-colors">
@@ -187,7 +187,7 @@ const Contact = () => {
               <div>
                 <h5 className="font-semibold text-lg mb-1">Office</h5>
                 <p className="text-gray-400">
-                  46 Morton Ave East<br />
+                  47 Morton Ave East, Unit 3<br />
                   Branton, ON N3R 7J5<br />
                   Canada
                 </p>
