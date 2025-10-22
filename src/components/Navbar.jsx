@@ -65,7 +65,7 @@ const Navbar = () => {
           {/* CENTER LOGO */}
           <motion.div
             className="absolute inset-0 pointer-events-none flex items-center justify-center"
-            animate={{ scale: scrolled ? 0.60 : 1.45 }}
+            animate={{ scale: scrolled ? 0.70 : 1.45 }}
             transition={{ type: 'spring', stiffness: 260, damping: 26 }}
           >
             <img
