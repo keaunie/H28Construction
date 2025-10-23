@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -62,22 +63,31 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* CENTER LOGO */}
+          {/* CENTER LOGO (clickable home button) */}
           <motion.div
-            className="absolute inset-0 pointer-events-none flex items-center justify-center"
-            animate={{ scale: scrolled ? 0.70 : 1.45 }}
+            className="absolute inset-0 flex items-center justify-center"
+            animate={{ scale: scrolled ? 0.7 : 1.45 }}
             transition={{ type: 'spring', stiffness: 260, damping: 26 }}
           >
-            <img
-              src="https://res.cloudinary.com/dczzibbkw/image/upload/v1760962770/h28construction_je3slj.webp"
-              alt="H28 Construction Management"
-              className="
-                object-contain
-                h-[70px] sm:h-[80px] md:h-[92px] lg:h-[104px] xl:h-[112px]
-                max-h-full
-              "
-            />
+            <Link
+              to="/"
+              aria-label="Go to Home"
+              className="pointer-events-auto cursor-pointer"
+            >
+              <motion.img
+                src="https://res.cloudinary.com/dczzibbkw/image/upload/v1760962770/h28construction_je3slj.webp"
+                alt="H28 Construction Management Logo"
+                className="
+        object-contain
+        h-[70px] sm:h-[80px] md:h-[92px] lg:h-[104px] xl:h-[112px]
+        max-h-full
+      "
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: 'spring', stiffness: 200, damping: 18 }}
+              />
+            </Link>
           </motion.div>
+
 
           {/* RIGHT — Nav Links + Button */}
           <div className="hidden md:flex items-center gap-6 lg:gap-8">

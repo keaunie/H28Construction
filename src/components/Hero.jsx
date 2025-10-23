@@ -2,14 +2,16 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/use-toast';
+import { useNavigate } from 'react-router-dom';
+
 
 const Hero = () => {
+  const navigate = useNavigate();
+
   const handleCTA = () => {
-    toast({
-      title: "🚧 This feature isn't implemented yet—but don't worry! Kyo will do it later!",
-      duration: 4000,
-    });
+    navigate('/our-services'); // ✅ redirects to your new page
   };
+
 
   return (
     <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -31,15 +33,18 @@ const Hero = () => {
           Building with Precision,<br /> Passion, and Purpose.
         </h1>
         <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto font-light">
-          Professional Construction Management for Commercial, Residential, and Industrial Projects.
+          Professional Construction Management for Commercial, Residential, <br/>and Industrial Projects.
         </p>
-        <Button
-          onClick={handleCTA}
-          size="lg"
-          className="bg-yellow-400 text-black hover:bg-yellow-300 font-semibold px-8 py-6 text-lg transition-all duration-300"
-        >
-          Start Your Project
-        </Button>
+        <a href="#contact" class="
+                ml-2 inline-flex items-center justify-center
+                px-4 py-2 lg:px-5 lg:py-2.5
+                rounded-full
+                bg-yellow-400 text-black font-semibold
+                hover:bg-white hover:text-black
+                border-2 border-yellow-400
+                transition-all duration-300
+                shadow-sm hover:shadow-lg
+              ">Start Your Project</a>
       </motion.div>
     </section>
   );

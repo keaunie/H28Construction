@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Award, Building, Maximize } from 'lucide-react';
+import { Award, Building, Maximize, ShieldCheck, Star, Medal, Trophy } from 'lucide-react';
 
 const stats = [
   {
@@ -22,6 +22,26 @@ const stats = [
     icon: Award,
     value: 'Best',
     label: 'Modular Tiny Home Builder 2025',
+  },
+  {
+    icon: ShieldCheck,
+    value: '2024',
+    label: 'CorporateLiveWire Innovation & Excellence – Housing Solutions Provider of the Year',
+  },
+  {
+    icon: Star,
+    value: '2024',
+    label: 'CBRB Inc. Best Business Award – Best Prefabricated Tiny Houses in Brantford',
+  },
+  {
+    icon: Medal,
+    value: '2023',
+    label: 'Halton Hills Chamber of Commerce – Business Excellence Award',
+  },
+  {
+    icon: Trophy,
+    value: '2024',
+    label: 'Milton Chamber of Commerce – Milton Excellence Award',
   },
 ];
 
@@ -48,12 +68,12 @@ const Stats = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
+              transition={{ duration: 0.6, delay: index * 0.15 }}
               className="flex flex-col items-center"
             >
               <stat.icon className="w-12 h-12 text-yellow-400 mb-4" strokeWidth={1.5} />
               <p className="text-4xl md:text-5xl font-bold">{stat.value}</p>
-              <p className="text-base text-gray-700 mt-2 max-w-[180px]">{stat.label}</p>
+              <p className="text-base text-gray-700 mt-2 max-w-[220px]">{stat.label}</p>
             </motion.div>
           ))}
         </div>

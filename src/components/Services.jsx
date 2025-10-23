@@ -1,8 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ClipboardCheck, DollarSign, Calendar, Users } from 'lucide-react';
+import { Button } from '@/components/ui/button'; // if using shadcn button
+import { useNavigate } from 'react-router-dom';
+
 
 const Services = () => {
+  const navigate = useNavigate();
+  const handleRedirect = () => navigate('/our-services');
+
   const services = [
     {
       icon: ClipboardCheck,
@@ -65,6 +71,21 @@ const Services = () => {
               <p className="text-gray-400 text-sm leading-relaxed">{service.description}</p>
             </motion.div>
           ))}
+        </div>
+
+      </div>
+      <div className="max-w-6xl mx-auto">
+        {/* existing header & grid */}
+
+        {/* CTA Button */}
+        <div className="text-center mt-16">
+          <Button
+            onClick={handleRedirect}
+            size="lg"
+            className="bg-yellow-400 text-black hover:bg-yellow-300 font-semibold px-8 py-6 text-lg transition-all duration-300 rounded-full"
+          >
+            View All Services
+          </Button>
         </div>
       </div>
     </section>

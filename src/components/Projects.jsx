@@ -6,12 +6,12 @@ const Projects = () => {
   const [filter, setFilter] = useState('All');
 
   const projects = [
-    { id: 1, title: 'Downtown Office Complex', category: 'Commercial', timeline: '18 months', budget: '$12M', alttext: 'Modern office tower integrating hybrid modular systems for faster completion.' },
-    { id: 2, title: 'Luxury Residential Tower', category: 'Residential', timeline: '24 months', budget: '$25M', alttext: 'Premium mixed-use development combining modern design with sustainable materials.' },
-    { id: 3, title: 'Manufacturing Facility', category: 'Industrial', timeline: '14 months', budget: '$8M', alttext: 'State-of-the-art production site built using rapid modular integration.' },
-    { id: 4, title: 'Retail Shopping Center', category: 'Commercial', timeline: '16 months', budget: '$15M', alttext: 'Energy-efficient commercial plaza with advanced prefabricated structures.' },
-    { id: 5, title: 'Waterfront Condominiums', category: 'Residential', timeline: '20 months', budget: '$18M', alttext: 'High-end condos featuring modular structural components and elegant urban design.' },
-    { id: 6, title: 'Warehouse Distribution Hub', category: 'Industrial', timeline: '12 months', budget: '$6M', alttext: 'Flexible, large-scale logistics center optimized for durability and operational efficiency.' }
+    { id: 1, title: 'Downtown Office Complex', category: 'Commercial', timeline: '18 months', budget: '$12M', assetsimage: 'https://res.cloudinary.com/h28/image/upload/v1760978546/8_uj9ous.png', alttext: 'Modern office tower integrating hybrid modular systems for faster completion.' },
+    { id: 2, title: 'Luxury Residential Tower', category: 'Residential', timeline: '24 months', budget: '$25M', assetsimage: 'https://res.cloudinary.com/h28/image/upload/v1760978547/14_upgnzf.png', alttext: 'Premium mixed-use development combining modern design with sustainable materials.' },
+    { id: 3, title: 'Manufacturing Facility', category: 'Industrial', timeline: '14 months', budget: '$8M', assetsimage: 'https://res.cloudinary.com/h28/image/upload/v1760978545/1_pzxbuh.png', alttext: 'State-of-the-art production site built using rapid modular integration.' },
+    { id: 4, title: 'Retail Shopping Center', category: 'Commercial', timeline: '16 months', budget: '$15M', assetsimage: 'https://res.cloudinary.com/h28/image/upload/v1760978548/18_bfhtbz.png', alttext: 'Energy-efficient commercial plaza with advanced prefabricated structures.' },
+    { id: 5, title: 'Waterfront Condominiums', category: 'Residential', timeline: '20 months', budget: '$18M', assetsimage: 'https://res.cloudinary.com/h28/image/upload/v1760978548/16_pb4jlo.png', alttext: 'High-end condos featuring modular structural components and elegant urban design.' },
+    { id: 6, title: 'Warehouse Distribution Hub', category: 'Industrial', timeline: '12 months', budget: '$6M', assetsimage: 'https://res.cloudinary.com/h28/image/upload/v1760978545/3_fjydqq.png', alttext: 'Flexible, large-scale logistics center optimized for durability and operational efficiency.' }
   ];
 
   const categories = ['All', 'Commercial', 'Residential', 'Industrial'];
@@ -58,11 +58,10 @@ const Projects = () => {
                 key={category}
                 onClick={() => setFilter(category)}
                 variant={filter === category ? 'default' : 'outline'}
-                className={`${
-                  filter === category
-                    ? 'bg-yellow-400 text-black hover:bg-yellow-300'
-                    : 'border-black text-black hover:bg-black hover:text-white'
-                } transition-all duration-300`}
+                className={`${filter === category
+                  ? 'bg-yellow-400 text-black hover:bg-yellow-300'
+                  : 'border-black text-black hover:bg-black hover:text-white'
+                  } transition-all duration-300`}
               >
                 {category}
               </Button>
@@ -84,9 +83,9 @@ const Projects = () => {
               <div className="bg-white border-2 border-black overflow-hidden hover:shadow-2xl transition-all duration-300">
                 <div className="aspect-[4/3] overflow-hidden bg-gray-200">
                   <img
-                    className="w-full h-full object-cover grayscale group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     alt={project.alttext}
-                    src="https://images.unsplash.com/photo-1586423951975-ba24e359efc0"
+                    src={project.assetsimage}
                   />
                 </div>
                 <div className="p-6">

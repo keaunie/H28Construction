@@ -135,7 +135,7 @@ const About = () => {
             {/* Content grid — full width, but padded for readability */}
             <div className="grid md:grid-cols-2 items-stretch">
               {/* Left: image preview (front page) */}
-              <div className="relative bg-white/40">
+              <div className="relative">
                 <div className="relative mx-auto w-full h-full min-h-[280px] md:min-h-[360px] lg:min-h-[420px] overflow-hidden">
                   <img
                     src={BROCHURE_COVER_URL}
@@ -165,17 +165,18 @@ const About = () => {
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
+
                       <button
                         onClick={() => setBrochureOpen(true)}
                         className="
-                  inline-flex items-center justify-center
-                  px-6 py-3 md:px-7 md:py-3.5
-                  rounded-lg
-                  bg-black text-white
-                  hover:bg-white hover:text-black
-                  border-2 border-black
-                  font-semibold
-                  transition-colors
+                  ml-2 inline-flex items-center justify-center
+                px-4 py-2 lg:px-5 lg:py-2.5
+                rounded-full
+                bg-black text-white font-semibold
+                hover:bg-white hover:text-black
+                border-2 border-yellow-400
+                transition-all duration-300
+                shadow-sm hover:shadow-lg
                 "
                       >
                         Open Brochure
@@ -187,8 +188,8 @@ const About = () => {
                         rel="noreferrer"
                         className="
                   inline-flex items-center justify-center
-                  px-6 py-3 md:px-7 md:py-3.5
-                  rounded-lg
+                  px-4 py-2 lg:px-5 lg:py-2.5
+                  rounded-full
                   bg-transparent text-black
                   hover:bg-black hover:text-white
                   border-2 border-black

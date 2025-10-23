@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from '@/components/ui/use-toast';
-import { Mail, Phone, MapPin, FileText, CalendarCheck, HelpCircle } from 'lucide-react';
+import { Mail, MapPin, FileText, CalendarCheck, HelpCircle } from 'lucide-react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -23,34 +23,7 @@ const Contact = () => {
   return (
     <section id="contact" className="relative py-24 px-4 bg-black text-white overflow-hidden">
       {/* Decorative maple leaf accent */}
-      {/* Mobile (<md) */}
-      <img
-        src="https://res.cloudinary.com/dczzibbkw/image/upload/v1760967879/mapleleaf_wf3ixn.webp"
-        alt=""
-        aria-hidden="true"
-        className="
-          block md:hidden
-          pointer-events-none select-none
-          absolute bottom-4 left-[-40px]
-          w-[140px]
-          opacity-100 drop-shadow-[0_0_12px_rgba(0,0,0,0.25)]
-          z-[2]
-        "
-      />
-      {/* Desktop (md+) */}
-      <img
-        src="https://res.cloudinary.com/dczzibbkw/image/upload/v1760967879/mapleleaf_wf3ixn.webp"
-        alt=""
-        aria-hidden="true"
-        className="
-          hidden md:block
-          pointer-events-none select-none
-          absolute -bottom-14 left-[-0px]
-          w-[200px] lg:w-[350px]
-          opacity-100 drop-shadow-[0_0_12px_rgba(0,0,0,0.25)]
-          z-[2]
-        "
-      />
+
 
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-[0]" />
@@ -71,41 +44,44 @@ const Contact = () => {
         </motion.div>
 
         {/* Main Grid */}
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="grid md:grid-cols-2 gap-12 items-start md:items-stretch md:gap-16">
           {/* Left: Get in Touch */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="flex flex-col justify-between h-full"
           >
-            <h3 className="text-2xl md:text-3xl font-semibold mb-6 text-yellow-400">
-              Get In Touch
-            </h3>
+            <div>
+              <h3 className="text-2xl md:text-3xl font-semibold mb-6 text-yellow-400">
+                Get In Touch
+              </h3>
 
-            <ul className="space-y-5 text-gray-300 mb-8">
-              <li className="flex items-center gap-3">
-                <CalendarCheck className="w-6 h-6 text-yellow-400" strokeWidth={1.6} />
-                <span>Schedule a Consultation</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <HelpCircle className="w-6 h-6 text-yellow-400" strokeWidth={1.6} />
-                <span>FAQs</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <FileText className="w-6 h-6 text-yellow-400" strokeWidth={1.6} />
-                <a
-                  href="https://heyzine.com/flip-book/f3f89b2d65.html#page/1"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-block text-white-400 hover:underline"
-                >
-                  View the Brochure
-                </a>
-              </li>
-            </ul>
+              <ul className="space-y-5 text-gray-300 mb-8">
+                <li className="flex items-center gap-3">
+                  <CalendarCheck className="w-6 h-6 text-yellow-400" strokeWidth={1.6} />
+                  <span>Schedule a Consultation</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <HelpCircle className="w-6 h-6 text-yellow-400" strokeWidth={1.6} />
+                  <span>Why Choose H28Construction</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <FileText className="w-6 h-6 text-yellow-400" strokeWidth={1.6} />
+                  <a
+                    href="https://heyzine.com/flip-book/f3f89b2d65.html#page/1"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-block text-white hover:underline"
+                  >
+                    View the Brochure
+                  </a>
+                </li>
+              </ul>
+            </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6 mt-auto">
               <Input
                 type="text"
                 name="name"
@@ -135,17 +111,11 @@ const Contact = () => {
               />
               <Button
                 type="submit"
-                className="w-full bg-yellow-400 text-black hover:bg-yellow-300 font-semibold py-6"
+                className="w-full bg-yellow-400 rounded-full text-black hover:bg-yellow-300 font-semibold py-6"
               >
                 Send Message
               </Button>
             </form>
-
-            <div className="flex text-center mt-40">
-              <h5 className="flex text-center text-2xl md:text-4xl font-semibold tracking-tight text-white z-[3]">
-                Family Owned & Proudly Canadian
-              </h5>
-            </div>
           </motion.div>
 
           {/* Right: Contact Info */}
@@ -154,43 +124,35 @@ const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="space-y-8"
+            className="flex flex-col justify-between h-full"
           >
-            <h4 className="text-2xl md:text-3xl font-semibold text-yellow-400 mb-4">
-              Reach Us Directly
-            </h4>
+            <div>
+              <h4 className="text-2xl md:text-3xl font-semibold text-yellow-400 mb-4">
+                Reach Us Directly
+              </h4>
 
-            {/* <div className="flex items-start space-x-4">
-              <div className="w-12 h-12 border border-white/20 flex items-center justify-center group hover:border-yellow-400 transition-colors">
-                <Phone className="w-6 h-6 group-hover:text-yellow-400 transition-colors" strokeWidth={1.5} />
+              <div className="flex items-start space-x-4 mb-6">
+                <div className="w-12 h-12 border border-white/20 flex items-center justify-center group hover:border-yellow-400 transition-colors">
+                  <Mail className="w-6 h-6 group-hover:text-yellow-400 transition-colors" strokeWidth={1.5} />
+                </div>
+                <div>
+                  <h5 className="font-semibold text-lg mb-1">Email</h5>
+                  <p className="text-gray-400">info@h28construction.ca</p>
+                </div>
               </div>
-              <div>
-                <h5 className="font-semibold text-lg mb-1">Phone</h5>
-                <p className="text-gray-400">+1 (555) 123-4567</p>
-              </div>
-            </div> */}
 
-            <div className="flex items-start space-x-4">
-              <div className="w-12 h-12 border border-white/20 flex items-center justify-center group hover:border-yellow-400 transition-colors">
-                <Mail className="w-6 h-6 group-hover:text-yellow-400 transition-colors" strokeWidth={1.5} />
-              </div>
-              <div>
-                <h5 className="font-semibold text-lg mb-1">Email</h5>
-                <p className="text-gray-400">info@h28construction.ca</p>
-              </div>
-            </div>
-
-            <div className="flex items-start space-x-4">
-              <div className="w-12 h-12 border border-white/20 flex items-center justify-center group hover:border-yellow-400 transition-colors">
-                <MapPin className="w-6 h-6 group-hover:text-yellow-400 transition-colors" strokeWidth={1.5} />
-              </div>
-              <div>
-                <h5 className="font-semibold text-lg mb-1">Office</h5>
-                <p className="text-gray-400">
-                  47 Morton Ave East, Unit 3<br />
-                  Branton, ON N3R 7J5<br />
-                  Canada
-                </p>
+              <div className="flex items-start space-x-4">
+                <div className="w-12 h-12 border border-white/20 flex items-center justify-center group hover:border-yellow-400 transition-colors">
+                  <MapPin className="w-6 h-6 group-hover:text-yellow-400 transition-colors" strokeWidth={1.5} />
+                </div>
+                <div>
+                  <h5 className="font-semibold text-lg mb-1">Office</h5>
+                  <p className="text-gray-400">
+                    47 Morton Ave East, Unit 3<br />
+                    Branton, ON N3R 7J5<br />
+                    Canada
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -202,6 +164,21 @@ const Contact = () => {
               />
             </div>
           </motion.div>
+        </div>
+
+        {/* Bottom Center Canadian Tagline */}
+        <div className="w-full mt-24 flex flex-col items-center justify-center text-center">
+          <div className="w-24 h-px bg-white/30 mb-6"></div>
+          <div className="flex items-center justify-center gap-4">
+            <h4 className="text-2xl md:text-2xl font-semibold tracking-tight text-white">
+              Family Owned & Proudly Canadian
+            </h4>
+            <img
+              src="https://res.cloudinary.com/dczzibbkw/image/upload/v1760967879/mapleleaf_wf3ixn.webp"
+              alt="Red maple leaf symbol"
+              className="hidden md:block absolute z-[-1] left-60 w-10 sm:w-16 md:w-24 lg:w-60 drop-shadow-[0_0_8px_rgba(0,0,0,0.4)] opacity-80"
+            />
+          </div>
         </div>
       </div>
     </section>
