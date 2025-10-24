@@ -1,12 +1,27 @@
 import React from 'react';
 import { Linkedin, Twitter, Facebook } from 'lucide-react';
-import { Link } from 'react-router-dom'; // 👈 added for internal routing
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const ACCENT_URL =
-    'https://res.cloudinary.com/dczzibbkw/image/upload/v1760967879/mapleleaf_wf3ixn.webp';
+  // Smooth scroll helper
+  const scrollToSection = (e, target) => {
+    e.preventDefault();
+
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        const el = document.querySelector(target);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 600);
+    } else {
+      const el = document.querySelector(target);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   return (
     <footer className="relative overflow-hidden bg-[#262626] text-white border-t border-white/10">
@@ -38,60 +53,67 @@ const Footer = () => {
             <span className="font-semibold text-lg mb-4 block">Quick Links</span>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="#about" className="text-gray-400 hover:text-yellow-400 transition-colors">
+                <Link
+                  to="/"
+                  onClick={(e) => scrollToSection(e, '#about')}
+                  className="text-gray-400 hover:text-yellow-400 transition-colors"
+                >
                   About
-                </a>
+                </Link>
               </li>
               <li>
-                {/* 👇 Internal link to /our-services */}
                 <Link
                   to="/our-services"
                   className="text-gray-400 hover:text-yellow-400 transition-colors"
                 >
-                  Services
+                  Our Services
                 </Link>
               </li>
               <li>
-                <a href="#projects" className="text-gray-400 hover:text-yellow-400 transition-colors">
+                <Link
+                  to="/"
+                  onClick={(e) => scrollToSection(e, '#projects')}
+                  className="text-gray-400 hover:text-yellow-400 transition-colors"
+                >
                   Projects
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#contact" className="text-gray-400 hover:text-yellow-400 transition-colors">
+                <Link
+                  to="/"
+                  onClick={(e) => scrollToSection(e, '#contact')}
+                  className="text-gray-400 hover:text-yellow-400 transition-colors"
+                >
                   Contact
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
 
-          {/* --- SERVICES --- */}
+          {/* --- SERVICES (scroll to homepage #services) --- */}
           <div>
             <span className="font-semibold text-lg mb-4 block">Services</span>
             <ul className="space-y-2 text-sm text-gray-400">
-              <li>
-                <a href="#services" className="hover:text-yellow-400 transition-colors">
-                  Project Management
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="hover:text-yellow-400 transition-colors">
-                  Budget Oversight
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="hover:text-yellow-400 transition-colors">
-                  Scheduling
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="hover:text-yellow-400 transition-colors">
-                  Contractor Coordination
-                </a>
-              </li>
+              {[
+                'Project Management',
+                'Budget Oversight',
+                'Scheduling',
+                'Contractor Coordination',
+              ].map((service) => (
+                <li key={service}>
+                  <Link
+                    to="/"
+                    onClick={(e) => scrollToSection(e, '#services')}
+                    className="hover:text-yellow-400 transition-colors"
+                  >
+                    {service}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* --- SOCIAL --- */}
+          {/* --- SOCIAL LINKS --- */}
           <div>
             <span className="font-semibold text-lg mb-4 block">Connect</span>
             <div className="flex space-x-4">
