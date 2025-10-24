@@ -50,7 +50,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#services" className="text-gray-400 hover:text-yellow-400 transition-colors">
+                <a href="/our-services" className="text-gray-400 hover:text-yellow-400 transition-colors">
                   Services
                 </a>
               </li>
@@ -70,10 +70,30 @@ const Footer = () => {
           <div>
             <span className="font-semibold text-lg mb-4 block">Services</span>
             <ul className="space-y-2 text-sm text-gray-400">
-              <li>Project Management</li>
+              {/* <li>Project Management</li>
               <li>Budget Oversight</li>
               <li>Scheduling</li>
-              <li>Contractor Coordination</li>
+              <li>Contractor Coordination</li> */}
+              <li>
+                <a href="#services" className="text-gray-400 hover:text-yellow-400 transition-colors">
+                  Project Management
+                </a>
+              </li>
+              <li>
+                <a href="#services" className="text-gray-400 hover:text-yellow-400 transition-colors">
+                  Budget Oversight
+                </a>
+              </li>
+              <li>
+                <a href="#services" className="text-gray-400 hover:text-yellow-400 transition-colors">
+                  Scheduling
+                </a>
+              </li>
+              <li>
+                <a href="#services" className="text-gray-400 hover:text-yellow-400 transition-colors">
+                  Contractor Coordination
+                </a>
+              </li>
             </ul>
           </div>
 

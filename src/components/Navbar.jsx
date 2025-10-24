@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -13,17 +16,41 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const navLinksLeft = [
-    { name: 'https://res.cloudinary.com/dczzibbkw/image/upload/v1760714234/habitat28_foirsa.webp', href: '#' },
-  ];
-
   const navLinksRight = [
-    // { name: 'About', href: '#about' },
-    { name: 'Services', href: '#services' },
+    { name: 'Services', href: '/our-services', external: true }, // 👈 redirect to new page
     { name: 'Process', href: '#process' },
     { name: 'Projects', href: '#projects' },
     { name: 'Contact', href: '#contact' },
   ];
+
+  const navLinksLeft = [
+    { name: 'https://res.cloudinary.com/dczzibbkw/image/upload/v1760714234/habitat28_foirsa.webp', href: '/' },
+  ];
+
+  // Smooth scroll utility
+  const smoothScrollTo = (target) => {
+    const el = document.querySelector(target);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const handleNavClick = (e, link) => {
+    e.preventDefault();
+    setMobileOpen(false);
+
+    // If "Services" (external page)
+    if (link.external) {
+      navigate(link.href);
+      return;
+    }
+
+    // Otherwise scroll on homepage
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => smoothScrollTo(link.href), 600);
+    } else {
+      setTimeout(() => smoothScrollTo(link.href), 100);
+    }
+  };
 
   return (
     <motion.nav
@@ -42,30 +69,28 @@ const Navbar = () => {
         <div
           className={cn(
             'relative flex items-center justify-between overflow-hidden transition-[height] duration-300',
-            scrolled
-              ? 'h-14 md:h-16 lg:h-20 xl:h-22'
-              : 'h-22 md:h-26 lg:h-30 xl:h-32'
+            scrolled ? 'h-14 md:h-16 lg:h-20 xl:h-22' : 'h-22 md:h-26 lg:h-30 xl:h-32'
           )}
         >
           {/* LEFT — Habitat28 Logo */}
-          <div className="flex items-center gap-4 sm:gap-6">
+          <div className="flex items-center gap-4 sm:gap-6 z-10">
             {navLinksLeft.map((l) => (
-              <a key={l.name} href={l.href} aria-label="Habitat28" className="block">
+              <Link key={l.name} to={l.href} aria-label="Habitat28" className="block">
                 <motion.img
                   src={l.name}
                   alt="Habitat28"
                   className="object-contain"
                   style={{ height: '40px' }}
-                  animate={{ scale: scrolled ? 0.70 : 1.20 }}
+                  animate={{ scale: scrolled ? 0.7 : 1.2 }}
                   transition={{ type: 'spring', stiffness: 260, damping: 22 }}
                 />
-              </a>
+              </Link>
             ))}
           </div>
 
-          {/* CENTER LOGO (clickable home button) */}
+          {/* CENTER LOGO */}
           <motion.div
-            className="absolute inset-0 flex items-center justify-center"
+            className="absolute inset-0 flex items-center justify-center pointer-events-none"
             animate={{ scale: scrolled ? 0.7 : 1.45 }}
             transition={{ type: 'spring', stiffness: 260, damping: 26 }}
           >
@@ -77,52 +102,47 @@ const Navbar = () => {
               <motion.img
                 src="https://res.cloudinary.com/dczzibbkw/image/upload/v1760962770/h28construction_je3slj.webp"
                 alt="H28 Construction Management Logo"
-                className="
-        object-contain
-        h-[70px] sm:h-[80px] md:h-[92px] lg:h-[104px] xl:h-[112px]
-        max-h-full
-      "
+                className="object-contain h-[70px] sm:h-[80px] md:h-[92px] lg:h-[104px] xl:h-[112px] max-h-full"
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: 'spring', stiffness: 200, damping: 18 }}
               />
             </Link>
           </motion.div>
 
-
           {/* RIGHT — Nav Links + Button */}
-          <div className="hidden md:flex items-center gap-6 lg:gap-8">
+          <div className="hidden md:flex items-center gap-6 lg:gap-8 z-10">
             {navLinksRight.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                to={link.external ? link.href : '/'}
+                onClick={(e) => handleNavClick(e, link)}
                 className="text-white font-medium text-sm lg:text-base hover:text-yellow-400 transition-colors"
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
 
-            {/* Start Your Project Button */}
-            <a
-              href="#contact"
-              className="
-                ml-2 inline-flex items-center justify-center
-                px-4 py-2 lg:px-5 lg:py-2.5
-                rounded-full
-                bg-yellow-400 text-black font-semibold
-                hover:bg-white hover:text-black
-                border-2 border-yellow-400
-                transition-all duration-300
-                shadow-sm hover:shadow-lg
-              "
+            {/* CTA */}
+            <Link
+              to="/"
+              onClick={(e) => handleNavClick(e, { href: '#contact' })}
+              className="ml-2 inline-flex items-center justify-center
+                         px-4 py-2 lg:px-5 lg:py-2.5
+                         rounded-full
+                         bg-yellow-400 text-black font-semibold
+                         hover:bg-white hover:text-black
+                         border-2 border-yellow-400
+                         transition-all duration-300
+                         shadow-sm hover:shadow-lg"
             >
               Start Your Project
-            </a>
+            </Link>
           </div>
 
           {/* MOBILE MENU BUTTON */}
           <button
             type="button"
-            className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-white hover:text-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-white hover:text-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 z-10"
             aria-label="Toggle menu"
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen((v) => !v)}
@@ -152,23 +172,22 @@ const Navbar = () => {
             <div className="px-4 py-3 sm:px-6">
               <nav className="flex flex-col gap-2">
                 {navLinksRight.map((link) => (
-                  <a
+                  <Link
                     key={link.name}
-                    href={link.href}
+                    to={link.external ? link.href : '/'}
+                    onClick={(e) => handleNavClick(e, link)}
                     className="py-2 text-white text-base font-medium rounded hover:text-yellow-400 transition-colors"
-                    onClick={() => setMobileOpen(false)}
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 ))}
-                {/* Mobile Button */}
-                <a
-                  href="#contact"
+                <Link
+                  to="/"
+                  onClick={(e) => handleNavClick(e, { href: '#contact' })}
                   className="mt-3 inline-flex justify-center rounded-md bg-yellow-400 text-black font-semibold py-3 hover:bg-white hover:text-black transition-all duration-300"
-                  onClick={() => setMobileOpen(false)}
                 >
                   Start Your Project
-                </a>
+                </Link>
               </nav>
             </div>
           </motion.div>

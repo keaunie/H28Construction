@@ -143,8 +143,6 @@ const About = () => {
                     className="absolute inset-0 h-full w-full object-contain p-6 md:p-8 lg:p-10"
                     onError={(e) => { e.currentTarget.style.display = 'none'; }}
                   />
-                  {/* subtle frame */}
-                  <div className="pointer-events-none absolute inset-3 md:inset-5 rounded-xl border border-black/20" />
                 </div>
               </div>
 
