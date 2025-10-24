@@ -1,46 +1,39 @@
 import React from 'react';
 import { Linkedin, Twitter, Facebook } from 'lucide-react';
+import { Link } from 'react-router-dom'; // 👈 added for internal routing
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
-  // ⬇️ Put your maple-leaf accent image URL here
   const ACCENT_URL =
     'https://res.cloudinary.com/dczzibbkw/image/upload/v1760967879/mapleleaf_wf3ixn.webp';
 
   return (
     <footer className="relative overflow-hidden bg-[#262626] text-white border-t border-white/10">
-
-
-      {/* Soft vignette for blending */}
+      {/* Soft vignette */}
       <div
         aria-hidden="true"
         className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-transparent"
       />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 py-12">
-
-
         <div className="grid md:grid-cols-4 gap-8 mb-8">
+          {/* --- LOGO --- */}
           <div>
-            {/* <span className="text-2xl font-bold">H28</span> */}
             <img
               src="https://res.cloudinary.com/dczzibbkw/image/upload/v1760962770/h28construction_je3slj.webp"
               alt="H28 Construction Management"
-              className="
-                object-contain
-                h-[70px] sm:h-[80px] md:h-[92px] lg:h-[104px] xl:h-[112px]
-                max-h-full
-              "
+              className="object-contain h-[70px] sm:h-[80px] md:h-[92px] lg:h-[104px] xl:h-[112px] max-h-full"
             />
             <p className="text-gray-300 text-xs mt-1">
               A division of <span className="font-semibold">Habitat28</span>
             </p>
             <p className="text-gray-400 text-sm mt-2">
-              H28 Construction Management, delivering precision-driven, certified construction solutions
+              H28 Construction Management, delivering precision-driven, certified construction solutions.
             </p>
           </div>
 
+          {/* --- QUICK LINKS --- */}
           <div>
             <span className="font-semibold text-lg mb-4 block">Quick Links</span>
             <ul className="space-y-2 text-sm">
@@ -50,9 +43,13 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="/our-services" className="text-gray-400 hover:text-yellow-400 transition-colors">
+                {/* 👇 Internal link to /our-services */}
+                <Link
+                  to="/our-services"
+                  className="text-gray-400 hover:text-yellow-400 transition-colors"
+                >
                   Services
-                </a>
+                </Link>
               </li>
               <li>
                 <a href="#projects" className="text-gray-400 hover:text-yellow-400 transition-colors">
@@ -67,36 +64,34 @@ const Footer = () => {
             </ul>
           </div>
 
+          {/* --- SERVICES --- */}
           <div>
             <span className="font-semibold text-lg mb-4 block">Services</span>
             <ul className="space-y-2 text-sm text-gray-400">
-              {/* <li>Project Management</li>
-              <li>Budget Oversight</li>
-              <li>Scheduling</li>
-              <li>Contractor Coordination</li> */}
               <li>
-                <a href="#services" className="text-gray-400 hover:text-yellow-400 transition-colors">
+                <a href="#services" className="hover:text-yellow-400 transition-colors">
                   Project Management
                 </a>
               </li>
               <li>
-                <a href="#services" className="text-gray-400 hover:text-yellow-400 transition-colors">
+                <a href="#services" className="hover:text-yellow-400 transition-colors">
                   Budget Oversight
                 </a>
               </li>
               <li>
-                <a href="#services" className="text-gray-400 hover:text-yellow-400 transition-colors">
+                <a href="#services" className="hover:text-yellow-400 transition-colors">
                   Scheduling
                 </a>
               </li>
               <li>
-                <a href="#services" className="text-gray-400 hover:text-yellow-400 transition-colors">
+                <a href="#services" className="hover:text-yellow-400 transition-colors">
                   Contractor Coordination
                 </a>
               </li>
             </ul>
           </div>
 
+          {/* --- SOCIAL --- */}
           <div>
             <span className="font-semibold text-lg mb-4 block">Connect</span>
             <div className="flex space-x-4">
@@ -125,6 +120,7 @@ const Footer = () => {
           </div>
         </div>
 
+        {/* --- COPYRIGHT --- */}
         <div className="border-t border-white/10 pt-8 text-center">
           <p className="text-sm text-gray-400">
             © {currentYear} H28 Construction Management. All rights reserved. |{' '}
