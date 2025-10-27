@@ -1,9 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ClipboardCheck, DollarSign, Calendar, Users } from 'lucide-react';
-import { Button } from '@/components/ui/button'; // if using shadcn button
+import { ClipboardCheck, DollarSign, Calendar, Users, HardHat, ShieldCheck, FileSpreadsheet, Wrench } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
-
 
 const Services = () => {
   const navigate = useNavigate();
@@ -13,76 +12,108 @@ const Services = () => {
     {
       icon: ClipboardCheck,
       title: 'Project Management',
-      description: 'Strategic leadership and coordination from pre-construction through to hand over. Ensuring every milestone is met with precision.',
+      description:
+        'Strategic oversight from design to delivery—managing schedule, budget, trades, and quality for predictable outcomes.'
     },
     {
       icon: DollarSign,
       title: 'Budget Oversight',
-      description: 'Financial transparency and control through proactive cost estimation, monitoring, and value engineering.',
+      description:
+        'Transparent cost control through early estimating, procurement strategy, and variance tracking within ±2%.'
     },
     {
       icon: Calendar,
-      title: 'Scheduling',
-      description: 'Smart scheduling and progress tracking that optimizes time frames, resources, and workforce allocation.',
+      title: 'Scheduling & Coordination',
+      description:
+        'Critical-path scheduling and live progress tracking ensure timely completion across all project milestones.'
     },
     {
       icon: Users,
-      title: 'Contractor Coordination',
-      description: 'End-to-end management of subcontractors and suppliers, ensuring seamless communication and quality assurance across all teams.',
+      title: 'Contractor & Trade Management',
+      description:
+        'Tendering and managing 20–30 trade packages per project with clarity, accountability, and safety compliance.'
     },
+    {
+      icon: HardHat,
+      title: 'Health & Safety',
+      description:
+        'Site-specific safety plans, daily toolbox talks, and inspection readiness with zero-incident commitment.'
+    },
+    {
+      icon: ShieldCheck,
+      title: 'Quality Assurance',
+      description:
+        'Structured QA/QC programs with test reports, checklists, and inspector sign-offs for code-compliant delivery.'
+    },
+    {
+      icon: FileSpreadsheet,
+      title: 'Cost Reporting & Documentation',
+      description:
+        'Real-time dashboards and monthly cost-to-complete summaries for full financial visibility and control.'
+    },
+    {
+      icon: Wrench,
+      title: 'Commissioning & Closeout',
+      description:
+        'Deficiency management, performance testing, and final documentation for seamless turnover and occupancy.'
+    }
   ];
 
   return (
-    <section id="services" className="py-24 px-4 bg-black text-white">
-      <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
+    <section
+      id="services"
+      className="relative bg-black text-white py-24 px-4"
+      style={{ scrollMarginTop: 'var(--navbar-height, 80px)' }}
+    >
+      <div className="mx-auto max-w-6xl">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="mb-16 text-center"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Services</h2>
-          <h3 className="text-2xl md:text-3xl font-semibold text-yellow-400 mb-4">
+          <h2 className="mb-4 text-4xl font-bold md:text-5xl">Our Services</h2>
+          <h3 className="mb-4 text-2xl font-semibold text-yellow-400 md:text-3xl">
             Seamless Management. Solid Results.
           </h3>
-          <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-            Comprehensive construction management solutions tailored to your project’s unique needs.
+          <p className="mx-auto max-w-3xl text-lg text-gray-300">
+            From concept to completion, H28 Construction delivers full-cycle project management—balancing cost,
+            schedule, safety, and quality to protect your investment.
           </p>
         </motion.div>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {services.map((service, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="border border-white/20 p-8 group hover:border-yellow-400 hover:bg-white/5 transition-all duration-300"
-            >
-              <service.icon
-                className="w-12 h-12 mb-6 text-white group-hover:text-yellow-400 transition-colors duration-300"
-                strokeWidth={1.5}
-              />
-              <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">{service.description}</p>
-            </motion.div>
-          ))}
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+          {services.map((service, i) => {
+            const Icon = service.icon;
+            return (
+              <motion.div
+                key={service.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.08 }}
+                className="group border border-white/20 p-8 transition-all duration-300 hover:border-yellow-400 hover:bg-white/5"
+              >
+                <Icon
+                  className="mb-6 h-12 w-12 text-white transition-colors duration-300 group-hover:text-yellow-400"
+                  strokeWidth={1.6}
+                />
+                <h3 className="mb-3 text-xl font-semibold">{service.title}</h3>
+                <p className="text-sm leading-relaxed text-gray-400">{service.description}</p>
+              </motion.div>
+            );
+          })}
         </div>
 
-      </div>
-      <div className="max-w-6xl mx-auto">
-        {/* existing header & grid */}
-
-        {/* CTA Button */}
-        <div className="text-center mt-16">
+        {/* CTA */}
+        <div className="mt-16 text-center">
           <Button
             onClick={handleRedirect}
             size="lg"
-            className="bg-yellow-400 text-black hover:bg-yellow-300 font-semibold px-8 py-6 text-lg transition-all duration-300 rounded-full"
+            className="rounded-full bg-yellow-400 px-8 py-6 text-lg font-semibold text-black transition-all duration-300 hover:bg-yellow-300"
           >
             View All Services
           </Button>
